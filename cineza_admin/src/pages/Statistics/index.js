@@ -68,7 +68,7 @@ function Statistics() {
         setUserInput(e.target.value)
         try {
             if (e.target.value.trim().length > 0) {
-                const resultApi = await axios.get(`http://13.212.32.129:9000/cineza/api/v1/user/find-user-by-name/${e.target.value}`)
+                const resultApi = await axios.get(`http://54.169.2.153:9000/cineza/api/v1/user/find-user-by-name/${e.target.value}`)
                 if (resultApi != null) {
                     setFoundUsers(resultApi.data);
                 }
@@ -88,7 +88,7 @@ function Statistics() {
         setMovieInput(e.target.value)
         try {
             if (e.target.value.trim().length > 0) {
-                const resultApi = await axios.get(`http://13.212.32.129:9000/cineza/api/v1/movie/get-all?movieName=${e.target.value}`);
+                const resultApi = await axios.get(`http://54.169.2.153:9000/cineza/api/v1/movie/get-all?movieName=${e.target.value}`);
                 if (resultApi != null) {
                     setFoundMovies(resultApi.data);
                 }
@@ -128,7 +128,7 @@ function Statistics() {
 
     useEffect(() => {
         const getTotalOrder = async () => {
-            const resultData = await axios.get(`http://13.212.32.129:9000/cineza/api/v1/statistics/get-total-order`);
+            const resultData = await axios.get(`http://54.169.2.153:9000/cineza/api/v1/statistics/get-total-order`);
             if (resultData != null) {
                 let total = 0;
                 resultData.data.forEach(order => {
@@ -142,7 +142,7 @@ function Statistics() {
 
     useEffect(() => {
         const getTotalTicket = async () => {
-            const resultData = await axios.get(`http://13.212.32.129:9000/cineza/api/v1/statistics/get-total-ticket`);
+            const resultData = await axios.get(`http://54.169.2.153:9000/cineza/api/v1/statistics/get-total-ticket`);
             if (resultData != null) {
                 let total = 0;
                 resultData.data.forEach(ticket => {
@@ -158,7 +158,7 @@ function Statistics() {
         const getStatistics = async () => {
             const stDay = startDate == "" ? "" : moment(startDate).format("YYYY-MM-DD");
             const edDay = endDate == "" ? "" : moment(endDate).format("YYYY-MM-DD");
-            const statisticsResult = await axios.get(`http://13.212.32.129:9000/cineza/api/v1/statistics/get-order-by-time-user-movie?timeStart=${stDay}&timeEnd=${edDay}&user=${selectUser}&movie=${selectedMovie}`);
+            const statisticsResult = await axios.get(`http://54.169.2.153:9000/cineza/api/v1/statistics/get-order-by-time-user-movie?timeStart=${stDay}&timeEnd=${edDay}&user=${selectUser}&movie=${selectedMovie}`);
             let total = 0;
             if (statisticsResult.data != "") {
                 for (const order of statisticsResult.data) {
@@ -186,7 +186,7 @@ function Statistics() {
         const getStatisticsTicket = async () => {
             const stDay = startDate == "" ? "" : moment(startDate).format("YYYY-MM-DD");
             const edDay = endDate == "" ? "" : moment(endDate).format("YYYY-MM-DD");
-            const statisticsResult = await axios.get(`http://13.212.32.129:9000/cineza/api/v1/statistics//get-ticket-by-time-user-movie?timeStart=${stDay}&timeEnd=${edDay}&user=${selectUser}&movie=${selectedMovie}`);
+            const statisticsResult = await axios.get(`http://54.169.2.153:9000/cineza/api/v1/statistics//get-ticket-by-time-user-movie?timeStart=${stDay}&timeEnd=${edDay}&user=${selectUser}&movie=${selectedMovie}`);
             let total = 0;
             let totalThuong = 0;
             let totalVIP = 0;
@@ -220,7 +220,7 @@ function Statistics() {
 
     useEffect(() => {
         const statisticsMovie = async () => {
-            const resultStatistic = await axios.get(`http://13.212.32.129:9000/cineza/api/v1/statistics/top-5-movie?startDate=${startDate}&endDate=${endDate}`)
+            const resultStatistic = await axios.get(`http://54.169.2.153:9000/cineza/api/v1/statistics/top-5-movie?startDate=${startDate}&endDate=${endDate}`)
             if (resultStatistic.data != null) {
                 const newData = {
                     labels: resultStatistic.data.map(m => m.movieName),

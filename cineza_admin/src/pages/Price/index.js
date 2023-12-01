@@ -57,7 +57,7 @@ const Price = () => {
   const getData = async () => {
     try {
       const result = await axios.get(
-        `http://13.212.32.129:9000/cineza/api/v1/price/get-all-by-header/${codePriceHeaderURI}`
+        `http://54.169.2.153:9000/cineza/api/v1/price/get-all-by-header/${codePriceHeaderURI}`
       );
       if (result.status == 200) {
         setContext(result.data);

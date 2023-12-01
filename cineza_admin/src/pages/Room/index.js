@@ -60,7 +60,7 @@ const Room = () => {
     const getRooms = async () => {
       try {
         const result = await axios.get(
-          `http://13.212.32.129:9000/cineza/api/v1/room/get-all-by-code/${codeRapURI}`
+          `http://54.169.2.153:9000/cineza/api/v1/room/get-all-by-code/${codeRapURI}`
         );
         if (result.status === 200) {
           setRoom(result.data);

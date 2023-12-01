@@ -120,7 +120,7 @@ const Ticket = () => {
   useEffect(() => {
     const findTicket = async () => {
       const tickets = await axios.get(
-        `http://13.212.32.129:9000/cineza/api/v1/ticket/get-all?movieName=${movieName}&showDate=`
+        `http://54.169.2.153:9000/cineza/api/v1/ticket/get-all?movieName=${movieName}&showDate=`
       );
       if (tickets.status == 200) {
         const dataResult = tickets.data.map((item) => {
@@ -151,7 +151,7 @@ const Ticket = () => {
   const getData = async () => {
     try {
       const result = await axios.get(
-        "http://13.212.32.129:9000/cineza/api/v1/ticket/get-all"
+        "http://54.169.2.153:9000/cineza/api/v1/ticket/get-all"
       );
       if (result.status == 200) {
         const dataResult = result.data.map((item) => {
@@ -181,12 +181,12 @@ const Ticket = () => {
     if (code != "") {
       const getTicket = async () => {
         const ticket = await axios.get(
-          `http://13.212.32.129:9000/cineza/api/v1/ticket/get-by-code/${code}`
+          `http://54.169.2.153:9000/cineza/api/v1/ticket/get-by-code/${code}`
         );
         if (ticket.status === 200) {
           setSelectTicket(ticket.data);
           const allSeat = await axios.get(
-            `http://13.212.32.129:9000/cineza/api/v1/seat/get-all-by-room/${ticket.data.roomCode}`
+            `http://54.169.2.153:9000/cineza/api/v1/seat/get-all-by-room/${ticket.data.roomCode}`
           );
           if (allSeat.status === 200) {
             let resultVip = [];
