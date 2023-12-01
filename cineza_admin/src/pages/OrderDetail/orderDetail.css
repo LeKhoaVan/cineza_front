@@ -1,0 +1,95 @@
+.order-detail-background {
+  width: 100vw;
+  height: 95vh;
+  background-color: rgba(200, 200, 200, 0.9);
+  position: fixed;
+  display: flex;
+  right: 1px;
+  top: 3rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.order-detail-container {
+  width: 95%;
+  height: 90%;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.order-detail-header {
+  width: 100%;
+  height: 10%;
+}
+
+.order-detail-header-edit {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-content: center;
+  padding: 5px;
+  border-bottom: 1px solid black;
+}
+
+/* close */
+.order-detail-header-close {
+  display: flex;
+  flex: 1;
+  justify-content: end;
+  padding: 5px;
+}
+
+.iconClose {
+  width: 20px;
+  height: 20px;
+
+  &:hover {
+    cursor: pointer;
+    padding: 5px;
+    background-color: red;
+    color: black;
+  }
+}
+
+.order-detail-header-name {
+  width: 100%;
+  height: 48%;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  font-size: 1.5rem;
+  /* border-bottom: 1px solid black; */
+}
+
+.order-detail-container-page {
+  width: 99%;
+  height: 90%;
+}
+
+.order-detail-table-page {
+  width: 100%;
+  height: 80%;
+  margin-top: 10px;
+  /* background-color: black; */
+  overflow-y: auto;
+}
+
+.room-btn-add {
+  width: 30px;
+  height: 30px;
+  margin-left: 37px;
+  border-radius: 50%;
+  padding: 5px;
+
+  &:hover {
+    background-color: rgb(217, 217, 217);
+  }
+}

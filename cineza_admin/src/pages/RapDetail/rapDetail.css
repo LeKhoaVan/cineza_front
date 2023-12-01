@@ -1,0 +1,268 @@
+.rap-detail-background {
+  width: 100vw;
+  height: 95vh;
+  background-color: rgba(200, 200, 200, 0.9);
+  position: fixed;
+  display: flex;
+  right: 1px;
+  top: 3rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.rap-detail-container {
+  width: 95%;
+  height: 90%;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.rap-detail-header {
+  width: 100%;
+  height: 25%;
+}
+
+.rap-detail-header-edit {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-content: center;
+  padding: 5px;
+  border-bottom: 1px solid black;
+}
+
+/* save */
+.rap-detail-header-edit-save {
+  width: 6%;
+  height: 100%;
+  padding-left: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  border-right: 1px solid black;
+
+  &:hover {
+    background-color: rgb(201, 201, 201);
+    cursor: pointer;
+  }
+}
+
+.icon-save {
+  width: 30px;
+  height: 30px;
+}
+
+/* update */
+.rap-detail-header-edit-update {
+  width: 5%;
+  height: 100%;
+  padding-left: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  border-right: 1px solid black;
+
+  &:hover {
+    background-color: rgb(201, 201, 201);
+    cursor: pointer;
+  }
+}
+
+.icon-update {
+  width: 40px;
+  height: 40px;
+}
+
+.rap-detail-header-edit-detail {
+  width: 5%;
+  height: 100%;
+  padding-left: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  border-right: 1px solid black;
+  text-decoration: none;
+  color: black;
+
+  &:hover {
+    background-color: rgb(201, 201, 201);
+    cursor: pointer;
+  }
+}
+
+.icon-detail {
+  width: 30px;
+  height: 30px;
+}
+
+/* Khoi new delete */
+.rap-detail-header-edit-new-delete {
+  width: 10%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+}
+
+.rap-detail-header-edit-new {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: rgb(201, 201, 201);
+    cursor: pointer;
+  }
+}
+
+.iconNew {
+  width: 30px;
+  height: 30px;
+}
+
+.rap-detail-header-edit-delete {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: rgb(201, 201, 201);
+    cursor: pointer;
+  }
+}
+
+.iconDelete {
+  width: 30px;
+  height: 30px;
+}
+
+/* close */
+.rap-detail-header-close {
+  display: flex;
+  flex: 1;
+  justify-content: end;
+  padding: 5px;
+}
+
+.iconClose {
+  width: 20px;
+  height: 20px;
+
+  &:hover {
+    cursor: pointer;
+    padding: 5px;
+    background-color: red;
+    color: black;
+  }
+}
+
+.rap-detail-header-name {
+  width: 100%;
+  height: 48%;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  font-size: 1.5rem;
+  border-bottom: 1px solid black;
+}
+
+.rap-detail-content {
+  width: 100%;
+  height: 75%;
+  display: flex;
+  flex-direction: row;
+}
+
+.rap-detail-content-left {
+  width: 50%;
+  height: 100%;
+  padding-top: 50px;
+}
+
+.rap-detail-input {
+  width: 98%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+}
+
+.input-rap-container {
+  width: 50%;
+  flex-direction: column;
+  margin-right: 95px;
+}
+
+.rap-detail-input-dem {
+  flex: 1;
+}
+
+.input-rap {
+  width: 100%;
+  padding: 5px;
+}
+
+.input-address-rap {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.input-address-rap-combobox {
+  margin-right: 11px;
+  margin-top: 10px;
+}
+
+.rap-detail-content-right {
+  width: 50%;
+  height: 100%;
+  padding-top: 50px;
+}
+
+.date-picker {
+  height: 29px;
+  padding-left: 17px;
+  margin-right: 230px;
+}
+
+.rap-detail-container-page {
+  width: 99%;
+}
+
+.rap-detail-table-page {
+  width: 100%;
+  height: 350px;
+  margin-top: 10px;
+  /* background-color: black; */
+  overflow-y: auto;
+}
+
+.room-btn-add {
+  width: 30px;
+  height: 30px;
+  margin-left: 37px;
+  border-radius: 50%;
+  padding: 5px;
+
+  &:hover {
+    background-color: rgb(217, 217, 217);
+  }
+}

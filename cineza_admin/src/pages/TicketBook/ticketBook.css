@@ -1,0 +1,114 @@
+.book-ticket-container {
+    display: flex;
+    flex-direction: row;
+    width: 99%;
+    min-height: 99%;
+    background-color: rgb(221, 221, 221);
+}
+
+.book-action-book {
+    display: flex;
+    flex-direction: column;
+    width: 68%;
+    min-height: 100%;
+    background-color: rgb(216, 216, 216);
+    padding-left: 20px;
+    padding-top: 20px;
+}
+
+.book-action-select-movie-rap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-right: 20px;
+}
+
+.seat-container {
+    min-height: 50%;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    /* Tạo 6 cột có chiều rộng bằng nhau */
+    gap: 1px;
+    /* Khoảng cách giữa các ghế */
+}
+
+.seat {
+    width: 50px;
+    height: 50px;
+    background-color: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.occupied {
+    background-color: #f00;
+    /* Màu ghế đã được chọn */
+}
+
+.book-action-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 90%;
+}
+
+.btn-book {
+    background-color: #4CAF50;
+    /* Màu nền xanh lá cây */
+    color: #fff;
+    /* Màu chữ trắng */
+    border: none;
+    /* Loại bỏ đường viền */
+    padding: 10px 20px;
+    /* Kích thước nút */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    /* Bo góc nút */
+}
+
+.btn-cancel {
+    background-color: #f7894a;
+    /* Màu nền xanh lá cây */
+    color: #fff;
+    /* Màu chữ trắng */
+    border: none;
+    /* Loại bỏ đường viền */
+    padding: 10px 20px;
+    /* Kích thước nút */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    /* Bo góc nút */
+}
+
+.book-ticket-content {
+    width: 27%;
+    min-height: 100%;
+    padding: 10px;
+    padding-top: 25px;
+    border-radius: 55px;
+    background-color: rgb(255, 255, 255);
+}
+
+.information-ticket {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.information-ticket p {
+    margin-bottom: 10px;
+    /* Khoảng cách 10px giữa các dòng */
+}

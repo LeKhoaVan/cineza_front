@@ -1,0 +1,225 @@
+.other-product-detail-background {
+  width: 100vw;
+  height: 95vh;
+  background-color: rgba(200, 200, 200, 0.9);
+  position: fixed;
+  display: flex;
+  right: 1px;
+  top: 3rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.other-product-detail-container {
+  width: 95%;
+  height: 90%;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.other-product-detail-header {
+  width: 100%;
+  height: 25%;
+}
+
+.other-product-detail-header-edit {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-content: center;
+  padding: 5px;
+  border-bottom: 1px solid black;
+}
+
+/* save */
+.other-product-detail-header-edit-save {
+  width: 5%;
+  height: 100%;
+  padding-left: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  border-right: 1px solid black;
+
+  &:hover {
+    background-color: rgb(201, 201, 201);
+    cursor: pointer;
+  }
+}
+
+.icon-save {
+  width: 30px;
+  height: 30px;
+}
+
+/* update */
+.other-product-detail-header-edit-update {
+  width: 5%;
+  height: 100%;
+  padding-left: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  border-right: 1px solid black;
+
+  &:hover {
+    background-color: rgb(201, 201, 201);
+    cursor: pointer;
+  }
+}
+
+.icon-update {
+  width: 40px;
+  height: 40px;
+}
+
+/* Khoi new delete */
+.other-product-detail-header-edit-new-delete {
+  width: 10%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+}
+
+.other-product-detail-header-edit-new {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: rgb(201, 201, 201);
+    cursor: pointer;
+  }
+}
+
+.iconNew {
+  width: 30px;
+  height: 30px;
+}
+
+.other-product-detail-header-edit-delete {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: rgb(201, 201, 201);
+    cursor: pointer;
+  }
+}
+
+.iconDelete {
+  width: 30px;
+  height: 30px;
+}
+
+/* close */
+.other-product-detail-header-close {
+  display: flex;
+  flex: 1;
+  justify-content: end;
+  padding: 5px;
+}
+
+.iconClose {
+  width: 20px;
+  height: 20px;
+
+  &:hover {
+    cursor: pointer;
+    padding: 5px;
+    background-color: red;
+    color: black;
+  }
+}
+
+.other-product-detail-header-name {
+  width: 100%;
+  height: 48%;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  font-size: 1.5rem;
+  border-bottom: 1px solid black;
+}
+
+.other-product-detail-content {
+  width: 100%;
+  height: 75%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  overflow-y: auto;
+}
+
+.other-product-detail-content-left {
+  width: 48%;
+  height: 100%;
+  padding-top: 50px;
+}
+
+.other-product-detail-input {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+}
+
+.input-other-product-container {
+  width: 50%;
+  flex-direction: column;
+  margin-right: 95px;
+}
+
+.other-product-detail-input-dem {
+  flex: 1;
+}
+
+.input-other-product {
+  width: 100%;
+  padding: 5px;
+}
+
+.input-address-user {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.input-address-user-combobox {
+  margin-right: 11px;
+  margin-top: 10px;
+}
+
+.other-product-detail-content-right {
+  width: 48%;
+  height: 100%;
+  padding-top: 50px;
+}
+
+.date-picker {
+  height: 29px;
+  padding-left: 17px;
+  margin-right: 209px;
+}
+
+.other-product-detail-poster {
+  width: 50%;
+  /* height: 400px; */
+}

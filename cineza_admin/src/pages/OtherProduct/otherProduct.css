@@ -1,0 +1,97 @@
+.other-product-container {
+  width: 99%;
+  height: 99%;
+  background-color: rgb(228, 228, 228);
+}
+
+.other-product-content {
+  width: 95%;
+  height: 92%;
+  display: flex;
+  position: sticky;
+  top: 5rem;
+  left: 23%;
+  flex-direction: column;
+  box-shadow: 2px 5px 5px #575353;
+  background-color: #fff;
+}
+
+.other-product-btn-add {
+  width: 30px;
+  height: 30px;
+  margin-left: 37px;
+  border-radius: 50%;
+  padding: 5px;
+
+  &:hover {
+    background-color: rgb(217, 217, 217);
+  }
+}
+
+.other-product-list-container {
+  width: 100%;
+  height: 85%;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(228, 228, 228);
+}
+
+/* Thiết lập các kiểu CSS cho danh sách phim */
+.other-product-list {
+  max-height: 100%;
+  overflow-y: auto;
+  display: flex;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  /* Khoảng cách giữa các bộ phim */
+}
+
+/* Thiết lập kiểu CSS cho mỗi thẻ bộ phim */
+.other-product-card {
+  width: calc(48% - 15px);
+  display: flex;
+  flex-direction: row;
+  /* box-shadow: 2px 5px 5px #575353; */
+  /* Độ rộng 50% và trừ đi khoảng cách giữa các bộ phim */
+  border: 1px solid #ddd;
+  padding: 10px;
+  box-shadow: 2px 5px 5px #575353;
+  background-color: #fff;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+/* Thiết lập kiểu CSS cho hình ảnh bộ phim */
+.other-product-card img {
+  /* max-width: 550px; */
+  height: 250px;
+  /* display: block; */
+  margin: 0 auto;
+}
+
+/* Thiết lập kiểu CSS cho các chi tiết bộ phim */
+.other-product-details {
+  width: 70%;
+  height: 80%;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  padding-left: 20px;
+}
+
+/* Thiết lập kiểu CSS cho tiêu đề của bộ phim */
+.other-product-details h2 {
+  font-size: 18px;
+  margin: 0;
+}
+
+/* Thiết lập kiểu CSS cho các thông tin bộ phim khác */
+.other-product-details p {
+  margin: 0;
+  font-size: 14px;
+  color: #555;
+}

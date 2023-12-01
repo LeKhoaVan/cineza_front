@@ -1,0 +1,73 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+html {
+  font-size: 15px;
+}
+
+:root {
+  --width-layout: 100vh;
+  --height-layout: 100vh;
+  --width-content: 90vh;
+}
+
+.default-container {
+  position: relative;
+  width: 100%;
+  max-height: var(--width-layout);
+  display: flex;
+  flex-direction: column;
+}
+
+.default-header {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 10;
+  width: 100%;
+  background-color: #85b4d0;
+  height: 4rem;
+}
+
+.default-wrapper {
+  width: 100%;
+  min-height: var(--width-content);
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.dedefault-sidebar {
+  width: 20%;
+  min-height: 90%;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-right: 5px;
+  box-shadow: 8px 8px 4px -6px #575353;
+  /* border-right: 1px black solid; */
+}
+
+.default-content {
+  flex: 1;
+}
+
+.btn-cancel {
+  background-color: #f7894a;
+  /* Màu nền xanh lá cây */
+  color: #fff;
+  /* Màu chữ trắng */
+  border: none;
+  /* Loại bỏ đường viền */
+  padding: 10px 20px;
+  /* Kích thước nút */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  /* Bo góc nút */
+}

@@ -1,0 +1,7 @@
+.home-page-container {
+    background-image: url("../../assets/image/background.jpeg");
+    width: 100%;
+    height: calc(var(--height-layout) - 4rem);
+    background-color: lightblue;
+    background-size: cover;
+}

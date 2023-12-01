@@ -1,0 +1,26 @@
+.promotion-line-container {
+    width: 99%;
+    height: 99%;
+    display: flex;
+    flex: 1;
+    padding-left: 10px;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(218, 218, 218);
+}
+
+.promotion-line-content {
+    width: 90%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+    padding-left: 10px;
+    border-radius: 30px;
+    /* border: 1px solid black; */
+    background-color: white;
+}
+
+.table-all-promotion-line {
+    overflow-y: auto;
+}
