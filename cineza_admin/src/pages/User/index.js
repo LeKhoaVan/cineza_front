@@ -74,7 +74,7 @@ const User = () => {
     try {
       if (levelUser != null) {
         const result = await axios.get(
-          `http://localhost:9000/cineza/api/v1/user/get-by-type/${levelUser}`
+          `http://54.169.84.199:9000/cineza/api/v1/user/get-by-type/${levelUser}`
         );
         console.log(result)
         if (result.status == 200) {
@@ -88,7 +88,7 @@ const User = () => {
         }
       } else {
         const result = await axios.get(
-          `http://localhost:9000/cineza/api/v1/user/get-by-type/${context[0].type}`
+          `http://54.169.84.199:9000/cineza/api/v1/user/get-by-type/${context[0].type}`
         );
         console.log(result)
         if (result.status == 200) {

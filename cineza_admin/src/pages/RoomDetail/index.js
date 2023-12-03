@@ -195,7 +195,7 @@ const RoomDetail = ({ rapCode, codeRoom, onClickHandleClose, addBtn }) => {
     } else {
       const getRoom = async () => {
         const result = await axios.get(
-          `http://localhost:9000/cineza/api/v1/room/get-by-code/${codeRoom}`
+          `http://54.169.84.199:9000/cineza/api/v1/room/get-by-code/${codeRoom}`
         );
         if (result.status === 200) {
           setCode(result.data.code);
@@ -213,7 +213,7 @@ const RoomDetail = ({ rapCode, codeRoom, onClickHandleClose, addBtn }) => {
   //   const getAllRap = async () => {
   //     try {
   //       const allRap = await axios.get(
-  //         "http://localhost:9000/cineza/api/v1/rap/get-all"
+  //         "http://54.169.84.199:9000/cineza/api/v1/rap/get-all"
   //       );
   //       if (allRap.status === 200) {
   //         setDataRap(allRap.data);
@@ -232,7 +232,7 @@ const RoomDetail = ({ rapCode, codeRoom, onClickHandleClose, addBtn }) => {
     const getSeats = async () => {
       try {
         const result = await axios.get(
-          `http://localhost:9000/cineza/api/v1/seat/get-all-by-room/${codeRoom}`
+          `http://54.169.84.199:9000/cineza/api/v1/seat/get-all-by-room/${codeRoom}`
         );
         if (result.status === 200) {
           setSeats(result.data);
@@ -250,7 +250,7 @@ const RoomDetail = ({ rapCode, codeRoom, onClickHandleClose, addBtn }) => {
     const getSeats = async () => {
       try {
         const result = await axios.get(
-          `http://localhost:9000/cineza/api/v1/seat/get-all-by-room-type/ts01/${codeRoom}`
+          `http://54.169.84.199:9000/cineza/api/v1/seat/get-all-by-room-type/ts01/${codeRoom}`
         );
         if (result.status === 200) {
           setComunitySeats(result.data);
@@ -268,7 +268,7 @@ const RoomDetail = ({ rapCode, codeRoom, onClickHandleClose, addBtn }) => {
     const getSeats = async () => {
       try {
         const result = await axios.get(
-          `http://localhost:9000/cineza/api/v1/seat/get-all-by-room-type/ts02/${codeRoom}`
+          `http://54.169.84.199:9000/cineza/api/v1/seat/get-all-by-room-type/ts02/${codeRoom}`
         );
         if (result.status === 200) {
           setVipSeats(result.data);
@@ -329,7 +329,7 @@ const RoomDetail = ({ rapCode, codeRoom, onClickHandleClose, addBtn }) => {
         console.log(room);
         if (editCode) {
           const response = await axios.post(
-            `http://localhost:9000/cineza/api/v1/room/create`,
+            `http://54.169.84.199:9000/cineza/api/v1/room/create`,
             room
           );
           if (response.status === 201) {
@@ -343,7 +343,7 @@ const RoomDetail = ({ rapCode, codeRoom, onClickHandleClose, addBtn }) => {
           }
         } else if (update) {
           const getShow = await axios.get(
-            `http://localhost:9000/cineza/api/v1/show/get-all-by-room/${code}`
+            `http://54.169.84.199:9000/cineza/api/v1/show/get-all-by-room/${code}`
           );
           const currentDate = new Date();
           let newArray = [];
@@ -374,7 +374,7 @@ const RoomDetail = ({ rapCode, codeRoom, onClickHandleClose, addBtn }) => {
           console.log(newArray.length);
           if (newArray.length === 0) {
             const response = await axios.put(
-              `http://localhost:9000/cineza/api/v1/room/put/` + code,
+              `http://54.169.84.199:9000/cineza/api/v1/room/put/` + code,
               room
             );
             if (response.status === 200) {

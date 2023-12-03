@@ -172,7 +172,7 @@ const SeatDetail = ({ codeSeat, onClickHandleClose, addBtn }) => {
   useEffect(() => {
     const getSeat = async () => {
       const result = await axios.get(
-        `http://localhost:9000/cineza/api/v1/seat/get-by-code/${codeSeat}`
+        `http://54.169.84.199:9000/cineza/api/v1/seat/get-by-code/${codeSeat}`
       );
       if (result.status === 200) {
         setCode(result.data.code);
@@ -208,7 +208,7 @@ const SeatDetail = ({ codeSeat, onClickHandleClose, addBtn }) => {
         console.log(seat);
         if (editCode) {
           const response = await axios.post(
-            `http://localhost:9000/cineza/api/v1/seat/create`,
+            `http://54.169.84.199:9000/cineza/api/v1/seat/create`,
             seat
           );
           if (response.status === 201) {
@@ -220,7 +220,7 @@ const SeatDetail = ({ codeSeat, onClickHandleClose, addBtn }) => {
           }
         } else if (update) {
           const response = await axios.put(
-            `http://localhost:9000/cineza/api/v1/seat/put/` + code,
+            `http://54.169.84.199:9000/cineza/api/v1/seat/put/` + code,
             seat
           );
           if (response.status === 200) {

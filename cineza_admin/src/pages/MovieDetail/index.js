@@ -112,7 +112,7 @@ const MovieDetail = ({ onClickHandleClose, addBtn, movieClick }) => {
   //     const getTypeMovie = async () => {
   //
   //       const typeMovie = await axios.get(
-  //         "http:localhost:9000/cineza/api/v1/movie-type/get-all"
+  //         "http:54.169.84.199:9000/cineza/api/v1/movie-type/get-all"
   //       );
   //       if (typeMovie.status == 200) {
   //         setDataTypeMovie(typeMovie.data);
@@ -327,7 +327,7 @@ const MovieDetail = ({ onClickHandleClose, addBtn, movieClick }) => {
     const getAllTypeMovie = async () => {
       try {
         const allTypeMovie = await axios.get(
-          "http://localhost:9000/cineza/api/v1/movie-type/get-all"
+          "http://54.169.84.199:9000/cineza/api/v1/movie-type/get-all"
         );
         if (allTypeMovie.status === 200) {
           setDataTypeMovie(allTypeMovie.data);
@@ -412,7 +412,7 @@ const MovieDetail = ({ onClickHandleClose, addBtn, movieClick }) => {
     try {
       if (editCode) {
         const newMovie = await axios.post(
-          `http://localhost:9000/cineza/api/v1/movie/create`,
+          `http://54.169.84.199:9000/cineza/api/v1/movie/create`,
           formData,
           {
             headers: {
@@ -431,7 +431,7 @@ const MovieDetail = ({ onClickHandleClose, addBtn, movieClick }) => {
         }
       } else if (update) {
         const updateMovie = await axios.put(
-          `http://localhost:9000/cineza/api/v1/movie/update/${code}`,
+          `http://54.169.84.199:9000/cineza/api/v1/movie/update/${code}`,
           formData,
           {
             headers: {

@@ -64,7 +64,7 @@ const Seat = () => {
     const getSeats = async () => {
       try {
         const result = await axios.get(
-          `http://localhost:9000/cineza/api/v1/seat/get-all-by-room/${codeRoomURI}`
+          `http://54.169.84.199:9000/cineza/api/v1/seat/get-all-by-room/${codeRoomURI}`
         );
         if (result.status === 200) {
           setSeat(result.data);

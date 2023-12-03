@@ -39,7 +39,7 @@ const Login = () => {
     if (disableLogin) {
       try {
         console.log(email, password)
-        const result = await axios.get(`http://localhost:9000/cineza/api/v1/user/login/${email}/${password}`);
+        const result = await axios.get(`http://54.169.84.199:9000/cineza/api/v1/user/login/${email}/${password}`);
         console.log(result.data)
         if (result.data != "") {
           if (result.data.type == "ADMIN") {

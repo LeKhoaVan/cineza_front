@@ -302,7 +302,7 @@ const UserDetail = ({ codeUserBy, onClickHandleClose, addBtn }) => {
       } else {
         try {
           const response = await axios.get(
-            `http://localhost:9000/cineza/api/v1/user/get-by-code/${codeUserBy}`
+            `http://54.169.84.199:9000/cineza/api/v1/user/get-by-code/${codeUserBy}`
           );
           if (response.status === 200) {
             setCodeUser(response.data.code);
@@ -344,7 +344,7 @@ const UserDetail = ({ codeUserBy, onClickHandleClose, addBtn }) => {
     const getAllCountry = async () => {
       try {
         const allCountry = await axios.get(
-          `http://localhost:9000/cineza/api/v1/address/get-by-level?levelAddress=QUOCGIA`
+          `http://54.169.84.199:9000/cineza/api/v1/address/get-by-level?levelAddress=QUOCGIA`
         );
         if (allCountry.status === 200) {
           setCountry(allCountry.data);
@@ -363,7 +363,7 @@ const UserDetail = ({ codeUserBy, onClickHandleClose, addBtn }) => {
     const getAllCountry = async () => {
       try {
         const allCity = await axios.get(
-          `http://localhost:9000/cineza/api/v1/address/get-by-level?levelAddress=TINH/TP`
+          `http://54.169.84.199:9000/cineza/api/v1/address/get-by-level?levelAddress=TINH/TP`
         );
         if (allCity.status === 200) {
           setCity(allCity.data);
@@ -382,7 +382,7 @@ const UserDetail = ({ codeUserBy, onClickHandleClose, addBtn }) => {
     const getAllCountry = async () => {
       try {
         const allDistrict = await axios.get(
-          `http://localhost:9000/cineza/api/v1/address/get-by-level?levelAddress=HUYEN/QUAN`
+          `http://54.169.84.199:9000/cineza/api/v1/address/get-by-level?levelAddress=HUYEN/QUAN`
         );
         if (allDistrict.status === 200) {
           setDistrict(allDistrict.data);
@@ -401,7 +401,7 @@ const UserDetail = ({ codeUserBy, onClickHandleClose, addBtn }) => {
     const getAllCountry = async () => {
       try {
         const allWard = await axios.get(
-          `http://localhost:9000/cineza/api/v1/address/get-by-level?levelAddress=XA/PHUONG`
+          `http://54.169.84.199:9000/cineza/api/v1/address/get-by-level?levelAddress=XA/PHUONG`
         );
         if (allWard.status === 200) {
           setWard(allWard.data);
@@ -419,7 +419,7 @@ const UserDetail = ({ codeUserBy, onClickHandleClose, addBtn }) => {
     if (countryId != "") {
       const getCity = async () => {
         const response = await axios.get(
-          `http://localhost:9000/cineza/api/v1/address/get-by-parent/${countryId}`
+          `http://54.169.84.199:9000/cineza/api/v1/address/get-by-parent/${countryId}`
         );
         if (response.status == 200) {
           setCity(response.data);
@@ -435,7 +435,7 @@ const UserDetail = ({ codeUserBy, onClickHandleClose, addBtn }) => {
     if (cityId != "") {
       const getDistrict = async () => {
         const response = await axios.get(
-          `http://localhost:9000/cineza/api/v1/address/get-by-parent/${cityId}`
+          `http://54.169.84.199:9000/cineza/api/v1/address/get-by-parent/${cityId}`
         );
         if (response.status == 200) {
           setDistrict(response.data);
@@ -451,7 +451,7 @@ const UserDetail = ({ codeUserBy, onClickHandleClose, addBtn }) => {
     if (districtId != "") {
       const getDistrict = async () => {
         const response = await axios.get(
-          `http://localhost:9000/cineza/api/v1/address/get-by-parent/${districtId}`
+          `http://54.169.84.199:9000/cineza/api/v1/address/get-by-parent/${districtId}`
         );
         if (response.status == 200) {
           setWard(response.data);
@@ -543,7 +543,7 @@ const UserDetail = ({ codeUserBy, onClickHandleClose, addBtn }) => {
         console.log(user);
         if (editCode) {
           const response = await axios.post(
-            `http://localhost:9000/cineza/api/v1/user/create`,
+            `http://54.169.84.199:9000/cineza/api/v1/user/create`,
             user
           );
           if (response.status === 201) {
@@ -556,7 +556,7 @@ const UserDetail = ({ codeUserBy, onClickHandleClose, addBtn }) => {
           }
         } else if (update) {
           const response = await axios.put(
-            `http://localhost:9000/cineza/api/v1/user/update/${codeUser}`,
+            `http://54.169.84.199:9000/cineza/api/v1/user/update/${codeUser}`,
             user
           );
           if (response.status === 200) {

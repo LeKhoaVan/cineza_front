@@ -134,7 +134,7 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
     if (codeRap != null) {
       try {
         const result = await axios.get(
-          `http://localhost:9000/cineza/api/v1/room/get-all-by-code/${codeRap}`
+          `http://54.169.84.199:9000/cineza/api/v1/room/get-all-by-code/${codeRap}`
         );
         if (result.status === 200) {
           setRooms(result.data);
@@ -308,7 +308,7 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
     }
     const getRap = async () => {
       const result = await axios.get(
-        `http://localhost:9000/cineza/api/v1/rap/get-by-code/${codeRapBy}`
+        `http://54.169.84.199:9000/cineza/api/v1/rap/get-by-code/${codeRapBy}`
       );
       if (result.status === 200) {
         setCode(result.data.code);
@@ -332,7 +332,7 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
     const getAllCountry = async () => {
       try {
         const allCountry = await axios.get(
-          `http://localhost:9000/cineza/api/v1/address/get-by-level?levelAddress=QUOCGIA`
+          `http://54.169.84.199:9000/cineza/api/v1/address/get-by-level?levelAddress=QUOCGIA`
         );
         if (allCountry.status === 200) {
           setCountry(allCountry.data);
@@ -351,7 +351,7 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
     const getAllCountry = async () => {
       try {
         const allCity = await axios.get(
-          `http://localhost:9000/cineza/api/v1/address/get-by-level?levelAddress=TINH/TP`
+          `http://54.169.84.199:9000/cineza/api/v1/address/get-by-level?levelAddress=TINH/TP`
         );
         if (allCity.status === 200) {
           setCity(allCity.data);
@@ -370,7 +370,7 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
     const getAllCountry = async () => {
       try {
         const allDistrict = await axios.get(
-          `http://localhost:9000/cineza/api/v1/address/get-by-level?levelAddress=HUYEN/QUAN`
+          `http://54.169.84.199:9000/cineza/api/v1/address/get-by-level?levelAddress=HUYEN/QUAN`
         );
         if (allDistrict.status === 200) {
           setDistrict(allDistrict.data);
@@ -389,7 +389,7 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
     const getAllCountry = async () => {
       try {
         const allWard = await axios.get(
-          `http://localhost:9000/cineza/api/v1/address/get-by-level?levelAddress=XA/PHUONG`
+          `http://54.169.84.199:9000/cineza/api/v1/address/get-by-level?levelAddress=XA/PHUONG`
         );
         if (allWard.status === 200) {
           setWard(allWard.data);
@@ -407,7 +407,7 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
     if (countryId != "") {
       const getCity = async () => {
         const response = await axios.get(
-          `http://localhost:9000/cineza/api/v1/address/get-by-parent/${countryId}`
+          `http://54.169.84.199:9000/cineza/api/v1/address/get-by-parent/${countryId}`
         );
         if (response.status == 200) {
           setCity(response.data);
@@ -423,7 +423,7 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
     if (cityId != "") {
       const getDistrict = async () => {
         const response = await axios.get(
-          `http://localhost:9000/cineza/api/v1/address/get-by-parent/${cityId}`
+          `http://54.169.84.199:9000/cineza/api/v1/address/get-by-parent/${cityId}`
         );
         if (response.status == 200) {
           setDistrict(response.data);
@@ -439,7 +439,7 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
     if (districtId != "") {
       const getDistrict = async () => {
         const response = await axios.get(
-          `http://localhost:9000/cineza/api/v1/address/get-by-parent/${districtId}`
+          `http://54.169.84.199:9000/cineza/api/v1/address/get-by-parent/${districtId}`
         );
         if (response.status == 200) {
           setWard(response.data);
@@ -456,7 +456,7 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
     if (codeRapBy != null) {
       try {
         const result = await axios.get(
-          `http://localhost:9000/cineza/api/v1/room/get-all-by-code/${codeRapBy}`
+          `http://54.169.84.199:9000/cineza/api/v1/room/get-all-by-code/${codeRapBy}`
         );
         if (result.status === 200) {
           setRooms(result.data);
@@ -549,7 +549,7 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
         // console.log(rap);
         if (editCode) {
           const response = await axios.post(
-            `http://localhost:9000/cineza/api/v1/rap/create`,
+            `http://54.169.84.199:9000/cineza/api/v1/rap/create`,
             rap
           );
           if (response.status === 201) {
@@ -563,7 +563,7 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
           }
         } else if (update) {
           const getShow = await axios.get(
-            `http://localhost:9000/cineza/api/v1/show/get-all-by-rap/${code}`
+            `http://54.169.84.199:9000/cineza/api/v1/show/get-all-by-rap/${code}`
           );
           const currentDate = new Date();
           let newArray = [];
@@ -583,7 +583,7 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
           });
           if (newArray.length === 0) {
             const response = await axios.put(
-              `http://localhost:9000/cineza/api/v1/rap/put/` + code,
+              `http://54.169.84.199:9000/cineza/api/v1/rap/put/` + code,
               rap
             );
             if (response.status === 200) {

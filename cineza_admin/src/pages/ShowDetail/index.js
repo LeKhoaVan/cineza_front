@@ -162,7 +162,7 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
     if (codeMovie != "") {
       const getDate = async () => {
         const resutlDate = await axios.get(
-          `http://localhost:9000/cineza/api/v1/movie/${codeMovie}`
+          `http://54.169.84.199:9000/cineza/api/v1/movie/${codeMovie}`
         );
         if (resutlDate.status === 200) {
           const startDate = moment(resutlDate.data.startDate);
@@ -272,7 +272,7 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
     } else {
       const getShow = async () => {
         const result = await axios.get(
-          `http://localhost:9000/cineza/api/v1/show/get-by-code/${codeShow}`
+          `http://54.169.84.199:9000/cineza/api/v1/show/get-by-code/${codeShow}`
         );
         if (result.status === 200) {
           setCode(result.data.code);
@@ -322,7 +322,7 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
   useEffect(() => {
     const getAllTicket = async () => {
       const allTicket = await axios.get(
-        `http://localhost:9000/cineza/api/v1/ticket/get-by-showing/${codeShow}`
+        `http://54.169.84.199:9000/cineza/api/v1/ticket/get-by-showing/${codeShow}`
       );
       if (allTicket.status === 200) {
         const resultTickets = allTicket.data.map((t) => {
@@ -348,10 +348,10 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
     if (codeRoom != "") {
       const getAllSeat = async () => {
         const allSeat = await axios.get(
-          `http://localhost:9000/cineza/api/v1/seat/get-all-by-room/${codeRoom}`
+          `http://54.169.84.199:9000/cineza/api/v1/seat/get-all-by-room/${codeRoom}`
         );
         const allTicket = await axios.get(
-          `http://localhost:9000/cineza/api/v1/ticket/get-by-showing/${codeShow}`
+          `http://54.169.84.199:9000/cineza/api/v1/ticket/get-by-showing/${codeShow}`
         );
         if (allSeat.status === 200) {
           const result = allSeat.data;
@@ -418,7 +418,7 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
     const getAllMovie = async () => {
       try {
         const allMovie = await axios.get(
-          `http://localhost:9000/cineza/api/v1/movie/get-all`
+          `http://54.169.84.199:9000/cineza/api/v1/movie/get-all`
         );
         if (allMovie.status === 200) {
           setDataMovie(allMovie.data);
@@ -437,7 +437,7 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
     const getAllRap = async () => {
       try {
         const allRap = await axios.get(
-          `http://localhost:9000/cineza/api/v1/rap/get-all`
+          `http://54.169.84.199:9000/cineza/api/v1/rap/get-all`
         );
         if (allRap.status === 200) {
           setDataRap(allRap.data);
@@ -458,7 +458,7 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
       try {
         if (codeRap != "") {
           const allRoom = await axios.get(
-            `http://localhost:9000/cineza/api/v1/room/get-all-by-code/${codeRap}`
+            `http://54.169.84.199:9000/cineza/api/v1/room/get-all-by-code/${codeRap}`
           );
           if (allRoom.status === 200) {
             setDataRoom(allRoom.data);
@@ -545,7 +545,7 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
           let showEnd = "";
           const dateCheck = moment(showDate, "DD-MM-YYYY").format("YYYY-MM-DD");
           const timeMovie = await axios.get(
-            `http://localhost:9000/cineza/api/v1/movie/${codeMovie}`
+            `http://54.169.84.199:9000/cineza/api/v1/movie/${codeMovie}`
           );
           if (timeMovie.data != "not found!") {
             const startTime = new Date();
@@ -568,13 +568,13 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
             const timeEnd1 = `${hours1}:${minutes1}`;
 
             const checkTime = await axios.get(
-              `http://localhost:9000/cineza/api/v1/show/check-show/${codeRap}/${codeRoom}/${dateCheck}/${showStart}/${timeEnd1}`
+              `http://54.169.84.199:9000/cineza/api/v1/show/check-show/${codeRap}/${codeRoom}/${dateCheck}/${showStart}/${timeEnd1}`
             );
             console.log(dateCheck);
             console.log(checkTime.data.length);
             if (checkTime.data.length === 0) {
               const response = await axios.post(
-                `http://localhost:9000/cineza/api/v1/show/create`,
+                `http://54.169.84.199:9000/cineza/api/v1/show/create`,
                 show
               );
               if (response.status === 201) {
@@ -598,7 +598,7 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
           let showEnd = "";
           const dateCheck = moment(showDate, "DD-MM-YYYY").format("YYYY-MM-DD");
           const timeMovie = await axios.get(
-            `http://localhost:9000/cineza/api/v1/movie/${codeMovie}`
+            `http://54.169.84.199:9000/cineza/api/v1/movie/${codeMovie}`
           );
           if (timeMovie.data != "not found!") {
             const startTime = new Date();
@@ -621,12 +621,12 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
             const timeEnd1 = `${hours1}:${minutes1}`;
 
             const checkTime = await axios.get(
-              `http://localhost:9000/cineza/api/v1/show/check-show/${codeRap}/${codeRoom}/${dateCheck}/${showStart}/${timeEnd1}?codeShow=${codeShow}`
+              `http://54.169.84.199:9000/cineza/api/v1/show/check-show/${codeRap}/${codeRoom}/${dateCheck}/${showStart}/${timeEnd1}?codeShow=${codeShow}`
             );
 
             if (checkTime.data.length === 0) {
               const response = await axios.put(
-                `http://localhost:9000/cineza/api/v1/show/put/` + code,
+                `http://54.169.84.199:9000/cineza/api/v1/show/put/` + code,
                 show
               );
               if (response.status === 200) {
@@ -674,10 +674,10 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
     if (codeTicket != "") {
       const getTicket = async () => {
         const allSeat = await axios.get(
-          `http://localhost:9000/cineza/api/v1/seat/get-all-by-room/${codeRoom}`
+          `http://54.169.84.199:9000/cineza/api/v1/seat/get-all-by-room/${codeRoom}`
         );
         const ticket = await axios.get(
-          `http://localhost:9000/cineza/api/v1/ticket/get-by-code/${codeTicket}`
+          `http://54.169.84.199:9000/cineza/api/v1/ticket/get-by-code/${codeTicket}`
         );
         if (ticket.status === 200) {
           setTicket(ticket.data);
@@ -731,7 +731,7 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
     ) {
       const getTimeMovie = async () => {
         const timeMovie = await axios.get(
-          `http://localhost:9000/cineza/api/v1/movie/${codeMovie}`
+          `http://54.169.84.199:9000/cineza/api/v1/movie/${codeMovie}`
         );
         if (timeMovie.data != "not found!") {
           const startTime = new Date();
