@@ -13,8 +13,8 @@ const SidebarHierarchyStructure = () => {
   const titleButton = [
     { text: "Vị trí địa lý", image: iconAddress, href: "/vtdl" },
     { text: "Người sử dụng", image: iconUser, href: "/users" },
-    { text: "Sản phẩm", image: iconProduct, href: "#" },
-    { text: "Khuyến mãi", image: iconPromotion, href: "/promotions" },
+    // { text: "Sản phẩm", image: iconProduct, href: "#" },
+    // { text: "Khuyến mãi", image: iconPromotion, href: "/promotions" },
   ];
 
   // quản lý trạng thái button

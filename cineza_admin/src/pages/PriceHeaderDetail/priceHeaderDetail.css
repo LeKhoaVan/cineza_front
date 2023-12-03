@@ -263,12 +263,13 @@
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
 }
 
 .dialog-content {
   background: #fff;
   padding: 20px;
+  margin-top: 10%;
   border-radius: 8px;
 }
 

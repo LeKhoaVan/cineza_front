@@ -173,7 +173,7 @@ const VTDLDetail = ({ levelAr, codeAddressBy, onClickHandleClose, addBtn }) => {
       const getAddressByCode = async () => {
         try {
           const response = await axios.get(
-            `http://54.169.2.153:9000/cineza/api/v1/address/get-by-code/${codeAddressBy}`
+            `http://localhost:9000/cineza/api/v1/address/get-by-code/${codeAddressBy}`
           );
 
           if (response.status === 200) {
@@ -243,7 +243,7 @@ const VTDLDetail = ({ levelAr, codeAddressBy, onClickHandleClose, addBtn }) => {
     try {
       if (editCode) {
         const response = await axios.post(
-          `http://54.169.2.153:9000/cineza/api/v1/address/create`,
+          `http://localhost:9000/cineza/api/v1/address/create`,
           address
         );
         if (response.status === 201) {
@@ -257,7 +257,7 @@ const VTDLDetail = ({ levelAr, codeAddressBy, onClickHandleClose, addBtn }) => {
         }
       } else if (update) {
         const response = await axios.put(
-          `http://54.169.2.153:9000/cineza/api/v1/address/update/${codeAddress}`,
+          `http://localhost:9000/cineza/api/v1/address/update/${codeAddress}`,
           address
         );
         if (response.status === 200) {
@@ -288,7 +288,7 @@ const VTDLDetail = ({ levelAr, codeAddressBy, onClickHandleClose, addBtn }) => {
           } else if (levelAddress === "TINH/TP") {
             //get country
             const allCountry = await axios.get(
-              `http://54.169.2.153:9000/cineza/api/v1/address/get-by-level?levelAddress=QUOCGIA`
+              `http://localhost:9000/cineza/api/v1/address/get-by-level?levelAddress=QUOCGIA`
             );
             if (allCountry.status === 200) {
               setDataComboboxTrucThuoc(allCountry.data);
@@ -299,7 +299,7 @@ const VTDLDetail = ({ levelAr, codeAddressBy, onClickHandleClose, addBtn }) => {
           } else if (levelAddress === "HUYEN/QUAN") {
             // get city
             const allCity = await axios.get(
-              `http://54.169.2.153:9000/cineza/api/v1/address/get-by-level?levelAddress=TINH/TP`
+              `http://localhost:9000/cineza/api/v1/address/get-by-level?levelAddress=TINH/TP`
             );
             if (allCity.status === 200) {
               setDataComboboxTrucThuoc(allCity.data);
@@ -310,7 +310,7 @@ const VTDLDetail = ({ levelAr, codeAddressBy, onClickHandleClose, addBtn }) => {
           } else if (levelAddress === "XA/PHUONG") {
             // get district
             const allDistrict = await axios.get(
-              `http://54.169.2.153:9000/cineza/api/v1/address/get-by-level?levelAddress=HUYEN/QUAN`
+              `http://localhost:9000/cineza/api/v1/address/get-by-level?levelAddress=HUYEN/QUAN`
             );
             if (allDistrict.status === 200) {
               setDataComboboxTrucThuoc(allDistrict.data);

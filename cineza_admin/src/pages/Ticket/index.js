@@ -120,7 +120,7 @@ const Ticket = () => {
   useEffect(() => {
     const findTicket = async () => {
       const tickets = await axios.get(
-        `http://54.169.2.153:9000/cineza/api/v1/ticket/get-all?movieName=${movieName}&showDate=`
+        `http://localhost:9000/cineza/api/v1/ticket/get-all?movieName=${movieName}&showDate=`
       );
       if (tickets.status == 200) {
         const dataResult = tickets.data.map((item) => {
@@ -151,7 +151,7 @@ const Ticket = () => {
   const getData = async () => {
     try {
       const result = await axios.get(
-        "http://54.169.2.153:9000/cineza/api/v1/ticket/get-all"
+        "http://localhost:9000/cineza/api/v1/ticket/get-all"
       );
       if (result.status == 200) {
         const dataResult = result.data.map((item) => {
@@ -181,12 +181,12 @@ const Ticket = () => {
     if (code != "") {
       const getTicket = async () => {
         const ticket = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/ticket/get-by-code/${code}`
+          `http://localhost:9000/cineza/api/v1/ticket/get-by-code/${code}`
         );
         if (ticket.status === 200) {
           setSelectTicket(ticket.data);
           const allSeat = await axios.get(
-            `http://54.169.2.153:9000/cineza/api/v1/seat/get-all-by-room/${ticket.data.roomCode}`
+            `http://localhost:9000/cineza/api/v1/seat/get-all-by-room/${ticket.data.roomCode}`
           );
           if (allSeat.status === 200) {
             let resultVip = [];
@@ -267,7 +267,7 @@ const Ticket = () => {
                   alt="tìm kiếm"
                   htmlFor="find"
                 />
-                <FormControl
+                {/* <FormControl
                   sx={{ width: "30%", marginLeft: "5%" }}
                   size="small"
                 >
@@ -289,7 +289,7 @@ const Ticket = () => {
                       );
                     })}
                   </Select>
-                </FormControl>
+                </FormControl> */}
               </div>
             </div>
             {/* <div
@@ -392,8 +392,8 @@ const Ticket = () => {
                     {formatDateHandle(new Date(selectTicket.showDate))}
                   </p>
                   <p>
-                    Giờ chiếu: {new Date(selectTicket.showStart).getHours()}:
-                    {new Date(selectTicket.showStart).getMinutes()}{" "}
+                    Giờ chiếu: {String(new Date(selectTicket.showStart).getHours()).padStart(2, '0')}:
+                    {String(new Date(selectTicket.showStart).getMinutes()).padStart(2, '0')}{" "}
                   </p>
                   <p>Rạp: {selectTicket.rapName}</p>
                   <p>Phòng: {selectTicket.roomName}</p>

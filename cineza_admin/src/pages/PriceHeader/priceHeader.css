@@ -33,4 +33,5 @@
 .table-all-price-header {
   margin-top: 10px;
   overflow-y: auto;
+  height: 95%;
 }

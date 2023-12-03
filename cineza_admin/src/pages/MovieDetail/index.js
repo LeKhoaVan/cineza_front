@@ -68,7 +68,17 @@ const MovieDetail = ({ onClickHandleClose, addBtn, movieClick }) => {
   const [createNew, setCreateNew] = useState(false);
   const [errors, setErrors] = useState({});
 
-  const [isValidMovieTime, setIsValidMovieTime] = useState(true);
+  const [isValidCode, setIsValidCode] = useState(false);
+  const [isValidMovieName, setIsValidMovieName] = useState(false);
+  const [isValidMovieTime, setIsValidMovieTime] = useState(false);
+  const [isValidMovieType, setIsValidMovieType] = useState(false);
+  const [isValidDescription, setIsValidDescription] = useState(false);
+  const [isValidActor, setIsValidActor] = useState(false);
+  const [isValidDirector, setIsValidDirector] = useState(false);
+  const [isValidStartDate, setIsValidStartDate] = useState(false);
+  const [isValidEndDate, setIsValidEndDate] = useState(false);
+  const [isValidStatus, setIsValidStatus] = useState(false);
+  const [isValidLanguageMovie, setIsValidLanguageMovie] = useState(false);
 
   const [showAlert, setShowAlert] = useState(false);
   const [message, setMessage] = useState("");
@@ -77,7 +87,6 @@ const MovieDetail = ({ onClickHandleClose, addBtn, movieClick }) => {
     if (message == "Lưu phim thành công") {
       onClickHandleClose();
     }
-
   };
 
   const [showConfirmAlert, setShowConfirmAlert] = useState(false);
@@ -103,7 +112,7 @@ const MovieDetail = ({ onClickHandleClose, addBtn, movieClick }) => {
   //     const getTypeMovie = async () => {
   //
   //       const typeMovie = await axios.get(
-  //         "http:54.169.2.153:9000/cineza/api/v1/movie-type/get-all"
+  //         "http:localhost:9000/cineza/api/v1/movie-type/get-all"
   //       );
   //       if (typeMovie.status == 200) {
   //         setDataTypeMovie(typeMovie.data);
@@ -114,6 +123,37 @@ const MovieDetail = ({ onClickHandleClose, addBtn, movieClick }) => {
   //     getTypeMovie();
   //   }, []);
 
+  //validate mã phim
+  useEffect(() => {
+    onHandleFocusCodeMovie();
+  }, [code]);
+
+  const onHandleFocusCodeMovie = () => {
+    if (editCode || edit) {
+      if (code == undefined || code.length <= 0) {
+        setIsValidCode(true);
+      } else {
+        setIsValidCode(false);
+      }
+    }
+  };
+
+  //validate tên phim
+  useEffect(() => {
+    onHandleFocusMovieName();
+  }, [movieName]);
+
+  const onHandleFocusMovieName = () => {
+    if (editCode || edit) {
+      if (movieName == undefined || movieName.length <= 0) {
+        setIsValidMovieName(true);
+      } else {
+        setIsValidMovieName(false);
+      }
+    }
+  };
+
+  //validate thời lượng phim
   useEffect(() => {
     onHandleFocusMovieTime();
   }, [movieTime]);
@@ -122,9 +162,129 @@ const MovieDetail = ({ onClickHandleClose, addBtn, movieClick }) => {
     if (edit || editCode) {
       const regex = /^\d*$/;
       if (movieTime.trim().length <= 0 || !regex.test(movieTime)) {
-        setIsValidMovieTime(false);
-      } else {
         setIsValidMovieTime(true);
+      } else {
+        setIsValidMovieTime(false);
+      }
+    }
+  };
+
+  //validate loại phim
+  useEffect(() => {
+    onHandleFocusMovieType();
+  }, [movieType]);
+
+  const onHandleFocusMovieType = () => {
+    if (editCode || edit) {
+      if (movieType == undefined || movieType.length <= 0) {
+        setIsValidMovieType(true);
+      } else {
+        setIsValidMovieType(false);
+      }
+    }
+  };
+
+  //valide mô tả
+  useEffect(() => {
+    onHandleFocusDescription();
+  }, [description]);
+
+  const onHandleFocusDescription = () => {
+    if (editCode || edit) {
+      if (description == undefined || description.length <= 0) {
+        setIsValidDescription(true);
+      } else {
+        setIsValidDescription(false);
+      }
+    }
+  };
+
+  //validate diễn viên
+  useEffect(() => {
+    onHandleFocusActor();
+  }, [actor]);
+
+  const onHandleFocusActor = () => {
+    if (editCode || edit) {
+      if (actor == undefined || actor.length <= 0) {
+        setIsValidActor(true);
+      } else {
+        setIsValidActor(false);
+      }
+    }
+  };
+
+  //validate tác giả
+  useEffect(() => {
+    onHandleFocusDirector();
+  }, [director]);
+
+  const onHandleFocusDirector = () => {
+    if (editCode || edit) {
+      if (director == undefined || director.length <= 0) {
+        setIsValidDirector(true);
+      } else {
+        setIsValidDirector(false);
+      }
+    }
+  };
+
+  //validate ngày phát hành
+  useEffect(() => {
+    onHandleFocusStartDate();
+  }, [startDate]);
+
+  const onHandleFocusStartDate = () => {
+    if (editCode || edit) {
+      if (startDate == undefined || startDate.length <= 0) {
+        setIsValidStartDate(true);
+      } else {
+        setIsValidStartDate(false);
+      }
+    }
+  };
+
+  //validate ngày kết thúc
+  useEffect(() => {
+    onHandleFocusEndDate();
+  }, [endDate, startDate]);
+
+  const onHandleFocusEndDate = () => {
+    if (editCode || edit) {
+      if (endDate == undefined || endDate.length <= 0 || endDate <= startDate) {
+        setIsValidEndDate(true);
+      } else {
+        setIsValidEndDate(false);
+      }
+    }
+  };
+
+  //validate trạng thái
+  useEffect(() => {
+    onHandleFocusStatus();
+  }, [status]);
+
+  const onHandleFocusStatus = () => {
+    if (editCode || edit) {
+      if (status == undefined || status.length == 0) {
+        setIsValidStatus(true);
+      } else {
+        setIsValidStatus(false);
+      }
+    }
+  };
+
+  //validate ngôn ngữ
+  useEffect(() => {
+    onHandleFocusLanguageMovie();
+  }, [languageMovie]);
+
+  const onHandleFocusLanguageMovie = () => {
+    if (editCode || edit) {
+      if (languageMovie == undefined || languageMovie.length == 0) {
+        setIsValidLanguageMovie(true);
+      } else {
+        setIsValidLanguageMovie(false);
       }
     }
   };
@@ -167,7 +327,7 @@ const MovieDetail = ({ onClickHandleClose, addBtn, movieClick }) => {
     const getAllTypeMovie = async () => {
       try {
         const allTypeMovie = await axios.get(
-          "http://54.169.2.153:9000/cineza/api/v1/movie-type/get-all"
+          "http://localhost:9000/cineza/api/v1/movie-type/get-all"
         );
         if (allTypeMovie.status === 200) {
           setDataTypeMovie(allTypeMovie.data);
@@ -235,11 +395,24 @@ const MovieDetail = ({ onClickHandleClose, addBtn, movieClick }) => {
     formData.append("endDate", endDate);
     formData.append("movieType", movieType);
     formData.append("status", status);
-    console.log(posterMovie, code, movieName, movieTime, description, director, actor, languageMovie, startDate, endDate, movieType, status)
+    console.log(
+      posterMovie,
+      code,
+      movieName,
+      movieTime,
+      description,
+      director,
+      actor,
+      languageMovie,
+      startDate,
+      endDate,
+      movieType,
+      status
+    );
     try {
       if (editCode) {
         const newMovie = await axios.post(
-          `http://54.169.2.153:9000/cineza/api/v1/movie/create`,
+          `http://localhost:9000/cineza/api/v1/movie/create`,
           formData,
           {
             headers: {
@@ -258,7 +431,7 @@ const MovieDetail = ({ onClickHandleClose, addBtn, movieClick }) => {
         }
       } else if (update) {
         const updateMovie = await axios.put(
-          `http://54.169.2.153:9000/cineza/api/v1/movie/update/${code}`,
+          `http://localhost:9000/cineza/api/v1/movie/update/${code}`,
           formData,
           {
             headers: {
@@ -378,11 +551,11 @@ const MovieDetail = ({ onClickHandleClose, addBtn, movieClick }) => {
                   readOnly={!editCode}
                   style={editCode ? {} : { background: "rgb(196, 196, 196)" }}
                   onChange={(text) => onChangeHandleCode(text)}
-                // onFocus={onHandleFocusCode}
+                  onFocus={onHandleFocusCodeMovie}
                 />
-                {/* {isValidCode && (
+                {isValidCode && (
                   <p style={{ color: "red" }}>Mã không được bỏ trống</p>
-                )} */}
+                )}
               </div>
             </div>
 
@@ -396,11 +569,11 @@ const MovieDetail = ({ onClickHandleClose, addBtn, movieClick }) => {
                   readOnly={!edit}
                   style={edit ? {} : { background: "rgb(196, 196, 196)" }}
                   onChange={(text) => onChangeHandleNameMovie(text)}
-                //   onFocus={onHandleFocusName}
+                  onFocus={onHandleFocusMovieName}
                 />
-                {/* {isValidName && (
-                  <p style={{ color: "red" }}>"Tên tối thiểu 3 ký tự chữ"</p>
-                )} */}
+                {isValidMovieName && (
+                  <p style={{ color: "red" }}>"Tên phim không bỏ trống"</p>
+                )}
               </div>
             </div>
 
@@ -419,7 +592,7 @@ const MovieDetail = ({ onClickHandleClose, addBtn, movieClick }) => {
                     value={movieType}
                     // label="Thể loại"
                     onChange={handleChangeComboboxLevel}
-                    // onFocus={onHandleFocusLevel}
+                    onFocus={onHandleFocusMovieType}
                     readOnly={!edit}
                     style={edit ? {} : { background: "rgb(196, 196, 196)" }}
                   >
@@ -432,9 +605,9 @@ const MovieDetail = ({ onClickHandleClose, addBtn, movieClick }) => {
                     })}
                   </Select>
                 </FormControl>
-                {/* {isValidLevel && (
-                  <p style={{ color: "red" }}>Level không bỏ trống</p>
-                )} */}
+                {isValidMovieType && (
+                  <p style={{ color: "red" }}>Thể loại phim không bỏ trống</p>
+                )}
               </div>
             </div>
             <div className="movie-detail-input">
@@ -452,9 +625,11 @@ const MovieDetail = ({ onClickHandleClose, addBtn, movieClick }) => {
                       : { height: "50px", background: "rgb(196, 196, 196)" }
                   }
                   onChange={(text) => onChangeHandleDescription(text)}
-                //   onFocus={onHandleFocusHome}
+                  onFocus={onHandleFocusDescription}
                 />
-                {/* {isValidHome && <p style={{ color: "red" }}>Không bỏ trống</p>} */}
+                {isValidDescription && (
+                  <p style={{ color: "red" }}>Không bỏ trống</p>
+                )}
               </div>
             </div>
 
@@ -503,11 +678,11 @@ const MovieDetail = ({ onClickHandleClose, addBtn, movieClick }) => {
                   readOnly={!edit}
                   style={edit ? {} : { background: "rgb(196, 196, 196)" }}
                   onChange={(text) => onChangeHandleDirector(text)}
-                //   onFocus={onHandleFocusPhone}
+                  onFocus={onHandleFocusDirector}
                 />
-                {/* {isValidPhone && (
-                  <p style={{ color: "red" }}>Số điện thoại không đúng</p>
-                )} */}
+                {isValidDirector && (
+                  <p style={{ color: "red" }}>Tác giả không bỏ trống</p>
+                )}
               </div>
             </div>
             <div className="movie-detail-input">
@@ -520,11 +695,11 @@ const MovieDetail = ({ onClickHandleClose, addBtn, movieClick }) => {
                   readOnly={!edit}
                   style={edit ? {} : { background: "rgb(196, 196, 196)" }}
                   onChange={(text) => onChangeHandleActor(text)}
-                //   onFocus={onHandleFocusPhone}
+                  onFocus={onHandleFocusActor}
                 />
-                {/* {isValidPhone && (
-                  <p style={{ color: "red" }}>Số điện thoại không đúng</p>
-                )} */}
+                {isValidActor && (
+                  <p style={{ color: "red" }}>Diễn viên không bỏ trống</p>
+                )}
               </div>
             </div>
             <div className="movie-detail-input">
@@ -539,8 +714,8 @@ const MovieDetail = ({ onClickHandleClose, addBtn, movieClick }) => {
                   onChange={(text) => onChangeHandleMovieTime(text)}
                   onFocus={onHandleFocusMovieTime}
                 />
-                {!isValidMovieTime && (
-                  <p style={{ color: "red" }}>Không đúng format</p>
+                {isValidMovieTime && (
+                  <p style={{ color: "red" }}>Không đúng format(nhập phút)</p>
                 )}
               </div>
             </div>
@@ -555,10 +730,14 @@ const MovieDetail = ({ onClickHandleClose, addBtn, movieClick }) => {
                   selected={startDate}
                   readOnly={!edit}
                   onChange={(date) => onChangeHandleStartDate(date)}
+                  onFocus={onHandleFocusStartDate}
                   fixedHeight="60px"
                   portalId="root-portal"
                   className="movie-detail-date-picker"
                 />
+                {isValidStartDate && (
+                  <p style={{ color: "red" }}>Chưa chọn ngày phát hành</p>
+                )}
               </div>
             </div>
 
@@ -572,10 +751,16 @@ const MovieDetail = ({ onClickHandleClose, addBtn, movieClick }) => {
                   selected={endDate}
                   readOnly={!edit}
                   onChange={(date) => onChangeHandleEndDate(date)}
+                  onFocus={onHandleFocusEndDate}
                   fixedHeight="60px"
                   portalId="root-portal"
                   className="movie-detail-date-picker"
                 />
+                {isValidEndDate && (
+                  <p style={{ color: "red" }}>
+                    Ngày kết thúc lớn hơn ngày phát hành
+                  </p>
+                )}
               </div>
             </div>
 
@@ -587,14 +772,13 @@ const MovieDetail = ({ onClickHandleClose, addBtn, movieClick }) => {
                   sx={{ width: "52%", marginRight: "80px" }}
                   size="small"
                 >
-                  {/* <InputLabel id="demo-select-small-label">Status</InputLabel> */}
                   <Select
                     labelId="demo-select-small-label"
                     id="demo-select-small"
                     value={status}
                     // label="Status"
                     onChange={handleChangeComboboxStatus}
-                    // onFocus={onHandleFocusStatus}
+                    onFocus={onHandleFocusStatus}
                     readOnly={!edit}
                     style={edit ? {} : { background: "rgb(196, 196, 196)" }}
                   >
@@ -607,9 +791,9 @@ const MovieDetail = ({ onClickHandleClose, addBtn, movieClick }) => {
                     })}
                   </Select>
                 </FormControl>
-                {/* {isValidStatus && (
-                                    <p style={{ color: "red" }}>Không được bỏ trống</p>
-                                )} */}
+                {isValidStatus && (
+                  <p style={{ color: "red" }}>Chưa chọn trạng thái</p>
+                )}
               </div>
             </div>
             <div className="movie-detail-input">
@@ -620,14 +804,13 @@ const MovieDetail = ({ onClickHandleClose, addBtn, movieClick }) => {
                   sx={{ width: "52%", marginRight: "80px" }}
                   size="small"
                 >
-                  {/* <InputLabel id="demo-select-small-label">Ngôn ngữ</InputLabel> */}
                   <Select
                     labelId="demo-select-small-label"
                     id="demo-select-small"
                     value={languageMovie}
                     // label="Ngôn ngữ"
                     onChange={handleChangeComboboxLanguage}
-                    // onFocus={onHandleFocusStatus}
+                    onFocus={onHandleFocusLanguageMovie}
                     readOnly={!edit}
                     style={edit ? {} : { background: "rgb(196, 196, 196)" }}
                   >
@@ -640,6 +823,9 @@ const MovieDetail = ({ onClickHandleClose, addBtn, movieClick }) => {
                     })}
                   </Select>
                 </FormControl>
+                {isValidLanguageMovie && (
+                  <p style={{ color: "red" }}>Chưa chọn ngôn ngữ</p>
+                )}
               </div>
             </div>
           </div>

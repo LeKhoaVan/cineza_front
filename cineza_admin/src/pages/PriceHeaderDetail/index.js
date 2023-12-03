@@ -77,6 +77,8 @@ const PriceHeaderDetail = ({ codePriceHeader, onClickHandleClose, addBtn }) => {
   const [dataPriceTam, setDataPriceTam] = useState(null);
 
   const [isValidCode, setIsValidCode] = useState(false);
+  const [isValidStartDayShow, setIsValidStartDayShow] = useState(false);
+  const [isValidEndDayShow, setIsValidEndDayShow] = useState(false);
   const [isValidStatus, setIsValidStatus] = useState(false);
   const [isValidDescription, setIsValidDescription] = useState(false);
 
@@ -104,10 +106,19 @@ const PriceHeaderDetail = ({ codePriceHeader, onClickHandleClose, addBtn }) => {
     setOpenModalDetail(!openModalDetail);
   };
 
-  const onClickHandleCloseP = () => {
+  const onClickHandleCloseP = async (codeHeader) => {
     // window.location.href = "/cineza/admin/rap";
     setOpenModalDetail(false);
     setOpenModelAdd(false);
+
+    if (codeHeader != "") {
+      const result = await axios.get(
+        `http://localhost:9000/cineza/api/v1/price/get-all-by-header/${codeHeader}`
+      );
+      if (result.status == 200) {
+        setPrices(result.data);
+      }
+    }
   };
 
   const onClickHandleBtnAdd = () => {
@@ -122,7 +133,6 @@ const PriceHeaderDetail = ({ codePriceHeader, onClickHandleClose, addBtn }) => {
   const onChangeHandleStartDate = (text) => {
     setStartDay(text);
     setStartDayShow(text);
-    console.log(startDay);
   };
   const onChangeHandleEndDate = (text) => {
     setEndDay(text);
@@ -146,6 +156,34 @@ const PriceHeaderDetail = ({ codePriceHeader, onClickHandleClose, addBtn }) => {
         setIsValidCode(true);
       } else {
         setIsValidCode(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    onHandleFocusStartDay();
+  }, [startDayShow]);
+
+  const onHandleFocusStartDay = () => {
+    if (editCode || edit) {
+      if (startDayShow == undefined || startDayShow.length <= 0) {
+        setIsValidStartDayShow(true);
+      } else {
+        setIsValidStartDayShow(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    onHandleFocusEndDay();
+  }, [endDayShow, startDayShow]);
+
+  const onHandleFocusEndDay = () => {
+    if (editCode || edit) {
+      if (endDayShow <= startDayShow) {
+        setIsValidEndDayShow(true);
+      } else {
+        setIsValidEndDayShow(false);
       }
     }
   };
@@ -194,10 +232,11 @@ const PriceHeaderDetail = ({ codePriceHeader, onClickHandleClose, addBtn }) => {
     setCode("");
     setDescription("");
     setStatus("");
-    setStartDayShow(new Date());
-    setEndDayShow(new Date());
+    setStartDayShow("");
+    setEndDayShow("");
     setStartDay(new Date());
     setEndDay(new Date());
+    setPrices([])
   };
 
   const onClickSave = async () => {
@@ -219,64 +258,77 @@ const PriceHeaderDetail = ({ codePriceHeader, onClickHandleClose, addBtn }) => {
       description: description,
       status: status,
     };
-    try {
-      console.log(priceHeader);
-      if (editCode) {
-        const checkStartDay = moment(startDayShow).format("YYYY-MM-DD");
-        const checkEndDay = moment(endDayShow).format("YYYY-MM-DD");
-        const checkTime = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/price-header/check-time/${checkStartDay}/${checkEndDay}`
-        );
-        console.log(checkTime.data.length);
-        if (checkTime.data.length === 0) {
-          const response = await axios.post(
-            `http://54.169.2.153:9000/cineza/api/v1/price-header/create`,
-            priceHeader
+    if (
+      !isValidCode &
+      !isValidDescription &
+      !isValidStartDayShow &
+      !isValidEndDayShow &
+      !isValidStatus
+    ) {
+      try {
+        console.log(priceHeader);
+        if (editCode) {
+          const checkStartDay = moment(startDayShow).format("YYYY-MM-DD");
+          const checkEndDay = moment(endDayShow).format("YYYY-MM-DD");
+          const checkTime = await axios.get(
+            `http://localhost:9000/cineza/api/v1/price-header/check-time/${checkStartDay}/${checkEndDay}`
           );
-          if (response.status === 201) {
-            setMessage("Lưu thành công");
-            setShowAlert(true);
-            onClickHandleNew();
+          console.log(checkTime.data.length);
+          if (checkTime.data.length === 0) {
+            const response = await axios.post(
+              `http://localhost:9000/cineza/api/v1/price-header/create`,
+              priceHeader
+            );
+            if (response.status === 201) {
+              setMessage("Lưu thành công");
+              setShowAlert(true);
+              // onClickHandleNew();
+            } else {
+              setMessage("Lưu thất bại");
+              setShowAlert(true);
+            }
           } else {
-            setMessage("Lưu thất bại");
-            setShowAlert(true);
+            // console.log("co bang gia header trung thoi gian")
+            setMessage("có bảng giá trùng thời gian. Bạn có muốn ghi đè");
+            setDataPriceTam(priceHeader);
+            setIsOpenDialog(true);
           }
-        } else {
-          // console.log("co bang gia header trung thoi gian")
-          setMessage("có bảng giá trùng thời gian. Bạn có muốn ghi đè");
-          setDataPriceTam(priceHeader);
-          setIsOpenDialog(true);
-        }
-      } else if (update) {
-        const checkStartDay = moment(startDayShow).format("YYYY-MM-DD");
-        const checkEndDay = moment(endDayShow).format("YYYY-MM-DD");
-        const checkTime = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/price-header/check-time/${checkStartDay}/${checkEndDay}`
-        );
-        if (checkTime.data.length === 0) {
-          const response = await axios.put(
-            `http://54.169.2.153:9000/cineza/api/v1/price-header/put/` + code,
-            priceHeader
+        } else if (update) {
+          const checkStartDay = moment(startDayShow).format("YYYY-MM-DD");
+          const checkEndDay = moment(endDayShow).format("YYYY-MM-DD");
+          const checkTime = await axios.get(
+            `http://localhost:9000/cineza/api/v1/price-header/check-time/${checkStartDay}/${checkEndDay}`
           );
-          if (response.status === 200) {
-            console.log("save success");
-            setMessage("Cập nhật thành công");
-            setShowAlert(true);
+          if (checkTime.data.length === 0) {
+            const response = await axios.put(
+              `http://localhost:9000/cineza/api/v1/price-header/put/` + code,
+              priceHeader
+            );
+            if (response.status === 200) {
+              console.log("save success");
+              setMessage("Cập nhật thành công");
+              setShowAlert(true);
+            } else {
+              setMessage("Cập nhật thất bại");
+              setShowAlert(true);
+            }
           } else {
-            setMessage("Cập nhật thất bại");
-            setShowAlert(true);
+            setMessage("có bảng giá trùng thời gian. Bạn có muốn ghi đè");
+            setDataPriceTam(priceHeader);
+            setIsOpenDialog(true);
           }
-        } else {
-          setMessage("có bảng giá trùng thời gian. Bạn có muốn ghi đè");
-          setDataPriceTam(priceHeader);
-          setIsOpenDialog(true);
         }
+      } catch (error) {
+        console.log("save price header fail: " + error);
+        setMessage("Lưu thất bại");
+        setShowAlert(true);
       }
-    } catch (error) {
-      console.log("save price header fail: " + error);
-      setMessage("Lưu thất bại");
+    } else {
+      console.log("lưu sai");
+      setMessage("Vui lòng nhập đầy đủ");
       setShowAlert(true);
     }
+
   };
 
   const handleConfirm = async () => {
@@ -286,16 +338,16 @@ const PriceHeaderDetail = ({ codePriceHeader, onClickHandleClose, addBtn }) => {
           const checkStartDay = moment(startDayShow).format("YYYY-MM-DD");
           const checkEndDay = moment(endDayShow).format("YYYY-MM-DD");
           const dataUpdate = await axios.put(
-            `http://54.169.2.153:9000/cineza/api/v1/price-header/update-all/${checkStartDay}/${checkEndDay}`
+            `http://localhost:9000/cineza/api/v1/price-header/update-all/${checkStartDay}/${checkEndDay}`
           );
           const response = await axios.post(
-            `http://54.169.2.153:9000/cineza/api/v1/price-header/create`,
+            `http://localhost:9000/cineza/api/v1/price-header/create`,
             dataPriceTam
           );
           if (response.status === 201) {
             setMessage("Lưu thành công");
             setShowAlert(true);
-            onClickHandleNew();
+            // onClickHandleNew();
           } else {
             setMessage("Lưu thất bại");
             setShowAlert(true);
@@ -311,10 +363,10 @@ const PriceHeaderDetail = ({ codePriceHeader, onClickHandleClose, addBtn }) => {
           const checkStartDay = moment(startDayShow).format("YYYY-MM-DD");
           const checkEndDay = moment(endDayShow).format("YYYY-MM-DD");
           const dataUpdate = await axios.put(
-            `http://54.169.2.153:9000/cineza/api/v1/price-header/update-all/${checkStartDay}/${checkEndDay}`
+            `http://localhost:9000/cineza/api/v1/price-header/update-all/${checkStartDay}/${checkEndDay}`
           );
           const response = await axios.put(
-            `http://54.169.2.153:9000/cineza/api/v1/price-header/put/` + code,
+            `http://localhost:9000/cineza/api/v1/price-header/put/` + code,
             dataPriceTam
           );
           if (response.status === 200) {
@@ -345,15 +397,15 @@ const PriceHeaderDetail = ({ codePriceHeader, onClickHandleClose, addBtn }) => {
       setCode("");
       setDescription("");
       setStatus("");
-      setStartDayShow(new Date());
-      setEndDayShow(new Date());
+      setStartDayShow("");
+      setEndDayShow("");
       setStartDay(new Date());
       setEndDay(new Date());
     }
     const getPriceHeader = async () => {
       try {
         const response = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/price-header/get-code/${codePriceHeader}`
+          `http://localhost:9000/cineza/api/v1/price-header/get-code/${codePriceHeader}`
         );
         if (response.status === 200) {
           setCode(response.data.code);
@@ -380,7 +432,7 @@ const PriceHeaderDetail = ({ codePriceHeader, onClickHandleClose, addBtn }) => {
     try {
       if (codePriceHeader != "") {
         const result = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/price/get-all-by-header/${codePriceHeader}`
+          `http://localhost:9000/cineza/api/v1/price/get-all-by-header/${codePriceHeader}`
         );
         if (result.status == 200) {
           setPrices(result.data);
@@ -394,13 +446,13 @@ const PriceHeaderDetail = ({ codePriceHeader, onClickHandleClose, addBtn }) => {
     getData();
   }, []);
 
-  useEffect(() => {
-    getData();
-  }, [openModalDetail]);
+  // useEffect(() => {
+  //   getData();
+  // }, [openModalDetail]);
 
-  useEffect(() => {
-    getData();
-  }, [openModelAdd]);
+  // useEffect(() => {
+  //   getData();
+  // }, [openModelAdd]);
 
   return (
     <div className="price-header-detail-background">
@@ -454,8 +506,13 @@ const PriceHeaderDetail = ({ codePriceHeader, onClickHandleClose, addBtn }) => {
           </div>
           <div className="price-header-detail-name">
             <p>
-              {code}: Từ ngày {formatDateHandle(startDayShow)} Đến ngày{" "}
-              {formatDateHandle(endDayShow)}{" "}
+              {code}: Từ ngày {startDayShow == "" ? "" :
+                `${String(new Date(startDayShow).getDate()).padStart(2, '0')}-${String(new Date(startDayShow).getMonth() + 1).padStart(2, '0')}-${String(new Date(startDayShow).getFullYear())}`
+              }  {" "}
+              Đến ngày{" "}
+              {endDayShow == "" ? "" :
+                `${String(new Date(endDayShow).getDate()).padStart(2, '0')}-${String(new Date(endDayShow).getMonth() + 1).padStart(2, '0')}-${String(new Date(endDayShow).getFullYear())}`
+              }
             </p>
           </div>
         </div>
@@ -500,10 +557,14 @@ const PriceHeaderDetail = ({ codePriceHeader, onClickHandleClose, addBtn }) => {
                   selected={startDayShow}
                   readOnly={!edit}
                   onChange={(date) => onChangeHandleStartDate(date)}
+                  onFocus={onHandleFocusStartDay}
                   fixedHeight="60px"
                   portalId="root-portal"
                   className="price-header-detail-date-picker"
                 />
+                {isValidStartDayShow && (
+                  <p style={{ color: "red" }}>Chưa chọn ngày bắt đầu</p>
+                )}
               </div>
             </div>
 
@@ -517,10 +578,16 @@ const PriceHeaderDetail = ({ codePriceHeader, onClickHandleClose, addBtn }) => {
                   selected={endDayShow}
                   readOnly={!edit}
                   onChange={(date) => onChangeHandleEndDate(date)}
+                  onFocus={onHandleFocusEndDay}
                   fixedHeight="60px"
                   portalId="root-portal"
                   className="price-header-detail-date-picker"
                 />
+                {isValidEndDayShow && (
+                  <p style={{ color: "red" }}>
+                    Ngày kết thúc phải lớn hơn ngày bắt đầu
+                  </p>
+                )}
               </div>
             </div>
           </div>

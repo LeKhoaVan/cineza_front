@@ -354,11 +354,13 @@
 }
 
 .seat-thuong {
-  background-color: #bfbca3;
+  background-color: #a3a39e;
+  color: white;
 }
 
 .seat-vip {
   background-color: #941833;
+  color: white;
 }
 
 .show-color-status {
@@ -369,18 +371,29 @@
 }
 
 .color-vip {
+  display: flex;
+  justify-content: center;
   width: 80px;
   height: 35px;
+  color: white;
+  align-items: center;
   background-color: #941833;
 }
 
 .color-thuong {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 90px;
   height: 35px;
-  background-color: #bfbca3;
+  background-color: #a3a39e;
+  color: white;
 }
 
 .color-booked {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 80px;
   height: 34px;
   background-color: #e8e6e6;
@@ -395,13 +408,14 @@
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
 }
 
 .confirm-dialog {
   width: 210px;
   height: 130px;
   display: flex;
+  margin-top: 8%;
   flex-direction: column;
   /* padding: 20px; */
   /* padding-top: 29px; */

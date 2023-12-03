@@ -33,5 +33,6 @@
 .table-all-rap {
   margin-top: 10px;
   overflow-y: auto;
+  height: 97%;
   /* box-shadow: 8px 8px 4px -6px #575353; */
 }

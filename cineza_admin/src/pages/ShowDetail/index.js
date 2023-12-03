@@ -162,7 +162,7 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
     if (codeMovie != "") {
       const getDate = async () => {
         const resutlDate = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/movie/${codeMovie}`
+          `http://localhost:9000/cineza/api/v1/movie/${codeMovie}`
         );
         if (resutlDate.status === 200) {
           const startDate = moment(resutlDate.data.startDate);
@@ -204,6 +204,20 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
         setIsValidCodeRap(true);
       } else {
         setIsValidCodeRap(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    onHandleFocusShowStart();
+  }, [showStart]);
+
+  const onHandleFocusShowStart = () => {
+    if (editCode || edit) {
+      if (showStart == undefined || showStart.length <= 0) {
+        setIsValidShowStart(true);
+      } else {
+        setIsValidShowStart(false);
       }
     }
   };
@@ -258,16 +272,19 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
     } else {
       const getShow = async () => {
         const result = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/show/get-by-code/${codeShow}`
+          `http://localhost:9000/cineza/api/v1/show/get-by-code/${codeShow}`
         );
         if (result.status === 200) {
           setCode(result.data.code);
-          let date = `${new Date(result.data.showStart).getHours()}:${new Date(
-            result.data.showStart
-          ).getMinutes()}`;
-          let dateEnd = `${new Date(result.data.showEnd).getHours()}:${new Date(
-            result.data.showEnd
-          ).getMinutes()}`;
+          const hourStart = new Date(result.data.showStart).getHours();
+          const minuteStart = new Date(result.data.showStart).getMinutes();
+          let date = `${hourStart < 10 ? "0" : ""}${hourStart}:${minuteStart < 10 ? "0" : ""
+            }${minuteStart}`;
+
+          const hourEnd = new Date(result.data.showEnd).getHours();
+          const minuteEnd = new Date(result.data.showEnd).getMinutes();
+          let dateEnd = `${hourEnd < 10 ? "0" : ""}${hourEnd}:${minuteEnd < 10 ? "0" : ""
+            }${minuteEnd}`;
 
           setShowStart(date);
           setShowEnd(dateEnd);
@@ -305,7 +322,7 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
   useEffect(() => {
     const getAllTicket = async () => {
       const allTicket = await axios.get(
-        `http://54.169.2.153:9000/cineza/api/v1/ticket/get-by-showing/${codeShow}`
+        `http://localhost:9000/cineza/api/v1/ticket/get-by-showing/${codeShow}`
       );
       if (allTicket.status === 200) {
         const resultTickets = allTicket.data.map((t) => {
@@ -331,10 +348,10 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
     if (codeRoom != "") {
       const getAllSeat = async () => {
         const allSeat = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/seat/get-all-by-room/${codeRoom}`
+          `http://localhost:9000/cineza/api/v1/seat/get-all-by-room/${codeRoom}`
         );
         const allTicket = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/ticket/get-by-showing/${codeShow}`
+          `http://localhost:9000/cineza/api/v1/ticket/get-by-showing/${codeShow}`
         );
         if (allSeat.status === 200) {
           const result = allSeat.data;
@@ -401,7 +418,7 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
     const getAllMovie = async () => {
       try {
         const allMovie = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/movie/get-all`
+          `http://localhost:9000/cineza/api/v1/movie/get-all`
         );
         if (allMovie.status === 200) {
           setDataMovie(allMovie.data);
@@ -420,7 +437,7 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
     const getAllRap = async () => {
       try {
         const allRap = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/rap/get-all`
+          `http://localhost:9000/cineza/api/v1/rap/get-all`
         );
         if (allRap.status === 200) {
           setDataRap(allRap.data);
@@ -441,7 +458,7 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
       try {
         if (codeRap != "") {
           const allRoom = await axios.get(
-            `http://54.169.2.153:9000/cineza/api/v1/room/get-all-by-code/${codeRap}`
+            `http://localhost:9000/cineza/api/v1/room/get-all-by-code/${codeRap}`
           );
           if (allRoom.status === 200) {
             setDataRoom(allRoom.data);
@@ -512,11 +529,13 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
     onHandleFocusCodeMovie();
     onHandleFocusCodeRap();
     onHandleFocusCodeRoom();
+    onHandleFocusShowStart();
     onHandleFocusStatus();
     if (
       !isValidCode &
       !isValidCodeMovie &
       !isValidCodeRap &
+      !isValidShowStart &
       !isValidStatus &
       !isValidCodeRoom
     ) {
@@ -526,7 +545,7 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
           let showEnd = "";
           const dateCheck = moment(showDate, "DD-MM-YYYY").format("YYYY-MM-DD");
           const timeMovie = await axios.get(
-            `http://54.169.2.153:9000/cineza/api/v1/movie/${codeMovie}`
+            `http://localhost:9000/cineza/api/v1/movie/${codeMovie}`
           );
           if (timeMovie.data != "not found!") {
             const startTime = new Date();
@@ -543,19 +562,19 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
             );
 
             const dateObject = new Date(showEnd);
-
+            dateObject.setMinutes(dateObject.getMinutes() + 15)
             const hours1 = dateObject.getHours();
             const minutes1 = dateObject.getMinutes();
             const timeEnd1 = `${hours1}:${minutes1}`;
 
             const checkTime = await axios.get(
-              `http://54.169.2.153:9000/cineza/api/v1/show/check-show/${codeRap}/${codeRoom}/${dateCheck}/${showStart}/${timeEnd1}`
+              `http://localhost:9000/cineza/api/v1/show/check-show/${codeRap}/${codeRoom}/${dateCheck}/${showStart}/${timeEnd1}`
             );
             console.log(dateCheck);
             console.log(checkTime.data.length);
             if (checkTime.data.length === 0) {
               const response = await axios.post(
-                `http://54.169.2.153:9000/cineza/api/v1/show/create`,
+                `http://localhost:9000/cineza/api/v1/show/create`,
                 show
               );
               if (response.status === 201) {
@@ -579,7 +598,7 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
           let showEnd = "";
           const dateCheck = moment(showDate, "DD-MM-YYYY").format("YYYY-MM-DD");
           const timeMovie = await axios.get(
-            `http://54.169.2.153:9000/cineza/api/v1/movie/${codeMovie}`
+            `http://localhost:9000/cineza/api/v1/movie/${codeMovie}`
           );
           if (timeMovie.data != "not found!") {
             const startTime = new Date();
@@ -596,21 +615,18 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
             );
 
             const dateObject = new Date(showEnd);
-
+            dateObject.setMinutes(dateObject.getMinutes() + 15)
             const hours1 = dateObject.getHours();
             const minutes1 = dateObject.getMinutes();
             const timeEnd1 = `${hours1}:${minutes1}`;
 
-            console.log("-------------test show end-----------");
-            console.log(showStart);
-            console.log(timeEnd1);
             const checkTime = await axios.get(
-              `http://54.169.2.153:9000/cineza/api/v1/show/check-show/${codeRap}/${codeRoom}/${dateCheck}/${showStart}/${timeEnd1}`
+              `http://localhost:9000/cineza/api/v1/show/check-show/${codeRap}/${codeRoom}/${dateCheck}/${showStart}/${timeEnd1}?codeShow=${codeShow}`
             );
 
             if (checkTime.data.length === 0) {
               const response = await axios.put(
-                `http://54.169.2.153:9000/cineza/api/v1/show/put/` + code,
+                `http://localhost:9000/cineza/api/v1/show/put/` + code,
                 show
               );
               if (response.status === 200) {
@@ -658,10 +674,10 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
     if (codeTicket != "") {
       const getTicket = async () => {
         const allSeat = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/seat/get-all-by-room/${codeRoom}`
+          `http://localhost:9000/cineza/api/v1/seat/get-all-by-room/${codeRoom}`
         );
         const ticket = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/ticket/get-by-code/${codeTicket}`
+          `http://localhost:9000/cineza/api/v1/ticket/get-by-code/${codeTicket}`
         );
         if (ticket.status === 200) {
           setTicket(ticket.data);
@@ -715,7 +731,7 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
     ) {
       const getTimeMovie = async () => {
         const timeMovie = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/movie/${codeMovie}`
+          `http://localhost:9000/cineza/api/v1/movie/${codeMovie}`
         );
         if (timeMovie.data != "not found!") {
           const startTime = new Date();
@@ -733,6 +749,7 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
             );
 
             const dateObject = new Date(showEndTam);
+            dateObject.setMinutes(dateObject.getMinutes() + 15);
 
             const hours1 = dateObject.getHours();
             const minutes1 = dateObject.getMinutes();
@@ -786,7 +803,7 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
                 height: 20,
                 alignItems: "center",
                 justifyContent: "center",
-                borderBottom: "10px solid black",
+                borderBottom: "5px solid black",
               }}
             >
               <h4
@@ -837,7 +854,7 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
               <p>Phim: {movieName}</p>
               <p>Ngày chiếu: {showDate == "" ? "" : showDate.toString()}</p>
               <p>
-                Giờ chiếu: {showStart == "" ? "" : showStart}
+                Giờ chiếu: {showStart == "" ? "" : String(showStart).padStart(2, '0')}
                 {/* {showStart == "" ? "" : showStart.getMinutes()} */}
               </p>
               <p>
@@ -871,7 +888,7 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
                 height: 20,
                 alignItems: "center",
                 justifyContent: "center",
-                borderBottom: "20px solid black",
+                borderBottom: "5px solid black",
               }}
             >
               <h4
@@ -921,8 +938,8 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
               <p>Phim: {ticket.movieName}</p>
               <p>Ngày chiếu: {formatDateHandle(new Date(ticket.showDate))}</p>
               <p>
-                Giờ chiếu: {new Date(ticket.showStart).getHours()}:
-                {new Date(ticket.showStart).getMinutes()}{" "}
+                Giờ chiếu: {String(new Date(ticket.showStart).getHours()).padStart(2, '0')}:
+                {String(new Date(ticket.showStart).getMinutes()).padStart(2, '0')}{" "}
               </p>
               <p>Rạp: {ticket.rapName}</p>
               <p>Phòng: {ticket.roomName}</p>
@@ -1030,8 +1047,14 @@ const ShowDetail = ({ codeShow, onClickHandleClose, addBtn }) => {
                       disabled={!edit}
                       value={showStart}
                       onChange={(text) => onChangeHandleShowStart(text)}
+                      onFocus={onHandleFocusShowStart}
                       className="show-detail-time-picker"
                     />
+                    {isValidShowStart && (
+                      <p style={{ color: "red" }}>
+                        Chưa chọn thời gian chiếu
+                      </p>
+                    )}
                   </div>
                 </div>
 

@@ -95,6 +95,8 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
   const [isValidCode, setIsValidCode] = useState(false);
   const [isValidName, setIsValidName] = useState(false);
   const [isValidNumberRap, setIsValidNumberRap] = useState(false);
+  const [isValidOpenTime, setIsValidOpenTime] = useState(false);
+  const [isValidCloseTime, setIsValidCloseTime] = useState(false);
   const [isValidStatus, setIsValidStatus] = useState(false);
   const [isValidAddress, setIsValidAddress] = useState(false);
   const [errorAddress, setErrorAddress] = useState(false);
@@ -123,11 +125,26 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
     setOpenModalRoomDetail(true);
   };
 
-  const onClickHandleCloseP = async () => {
+  const onClickHandleCloseP = async (codeRap) => {
     // window.location.href = "/cineza/admin/rap";
     setOpenModalRoomDetail(false);
     setOpenModalRapDetail(true);
     setOpenModelAdd(false);
+
+    if (codeRap != null) {
+      try {
+        const result = await axios.get(
+          `http://localhost:9000/cineza/api/v1/room/get-all-by-code/${codeRap}`
+        );
+        if (result.status === 200) {
+          setRooms(result.data);
+          // console.log(result.data);
+        }
+      } catch (error) {
+        console.error("error get all room by rap: " + error);
+      }
+    }
+
   };
 
   const onClickHandleBtnAdd = () => {
@@ -204,6 +221,34 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
   };
 
   useEffect(() => {
+    onHandleFocusOpenTime();
+  }, [openTime]);
+
+  const onHandleFocusOpenTime = () => {
+    if (editCode || edit) {
+      if (openTime == undefined || openTime.length <= 0) {
+        setIsValidOpenTime(true);
+      } else {
+        setIsValidOpenTime(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    onHandleFocusCloseTime();
+  }, [closeTime, openTime]);
+
+  const onHandleFocusCloseTime = () => {
+    if (editCode || edit) {
+      if (closeTime <= openTime) {
+        setIsValidCloseTime(true);
+      } else {
+        setIsValidCloseTime(false);
+      }
+    }
+  };
+
+  useEffect(() => {
     onHandleFocusNumberRap();
   }, [numberRap]);
 
@@ -263,7 +308,7 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
     }
     const getRap = async () => {
       const result = await axios.get(
-        `http://54.169.2.153:9000/cineza/api/v1/rap/get-by-code/${codeRapBy}`
+        `http://localhost:9000/cineza/api/v1/rap/get-by-code/${codeRapBy}`
       );
       if (result.status === 200) {
         setCode(result.data.code);
@@ -287,7 +332,7 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
     const getAllCountry = async () => {
       try {
         const allCountry = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/address/get-by-level?levelAddress=QUOCGIA`
+          `http://localhost:9000/cineza/api/v1/address/get-by-level?levelAddress=QUOCGIA`
         );
         if (allCountry.status === 200) {
           setCountry(allCountry.data);
@@ -306,7 +351,7 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
     const getAllCountry = async () => {
       try {
         const allCity = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/address/get-by-level?levelAddress=TINH/TP`
+          `http://localhost:9000/cineza/api/v1/address/get-by-level?levelAddress=TINH/TP`
         );
         if (allCity.status === 200) {
           setCity(allCity.data);
@@ -325,7 +370,7 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
     const getAllCountry = async () => {
       try {
         const allDistrict = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/address/get-by-level?levelAddress=HUYEN/QUAN`
+          `http://localhost:9000/cineza/api/v1/address/get-by-level?levelAddress=HUYEN/QUAN`
         );
         if (allDistrict.status === 200) {
           setDistrict(allDistrict.data);
@@ -344,7 +389,7 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
     const getAllCountry = async () => {
       try {
         const allWard = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/address/get-by-level?levelAddress=XA/PHUONG`
+          `http://localhost:9000/cineza/api/v1/address/get-by-level?levelAddress=XA/PHUONG`
         );
         if (allWard.status === 200) {
           setWard(allWard.data);
@@ -362,7 +407,7 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
     if (countryId != "") {
       const getCity = async () => {
         const response = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/address/get-by-parent/${countryId}`
+          `http://localhost:9000/cineza/api/v1/address/get-by-parent/${countryId}`
         );
         if (response.status == 200) {
           setCity(response.data);
@@ -378,7 +423,7 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
     if (cityId != "") {
       const getDistrict = async () => {
         const response = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/address/get-by-parent/${cityId}`
+          `http://localhost:9000/cineza/api/v1/address/get-by-parent/${cityId}`
         );
         if (response.status == 200) {
           setDistrict(response.data);
@@ -394,7 +439,7 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
     if (districtId != "") {
       const getDistrict = async () => {
         const response = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/address/get-by-parent/${districtId}`
+          `http://localhost:9000/cineza/api/v1/address/get-by-parent/${districtId}`
         );
         if (response.status == 200) {
           setWard(response.data);
@@ -411,7 +456,7 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
     if (codeRapBy != null) {
       try {
         const result = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/room/get-all-by-code/${codeRapBy}`
+          `http://localhost:9000/cineza/api/v1/room/get-all-by-code/${codeRapBy}`
         );
         if (result.status === 200) {
           setRooms(result.data);
@@ -427,13 +472,13 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
     getRooms();
   }, []);
 
-  useEffect(() => {
-    getRooms();
-  }, [openModelAdd]);
+  // useEffect(() => {
+  //   getRooms();
+  // }, [openModelAdd]);
 
-  useEffect(() => {
-    getRooms();
-  }, [openModalRoomDetail]);
+  // useEffect(() => {
+  //   getRooms();
+  // }, [openModalRoomDetail]);
 
   const onClickHandleEdit = () => {
     setUpdate(true);
@@ -494,6 +539,8 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
     if (
       !isValidCode &
       !isValidName &
+      !isValidOpenTime &
+      !isValidCloseTime &
       !isValidNumberRap &
       !isValidStatus &
       !isValidAddress
@@ -502,29 +549,32 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
         // console.log(rap);
         if (editCode) {
           const response = await axios.post(
-            `http://54.169.2.153:9000/cineza/api/v1/rap/create`,
+            `http://localhost:9000/cineza/api/v1/rap/create`,
             rap
           );
           if (response.status === 201) {
             setMessage("Lưu thành công");
             setShowAlert(true);
 
-            onClickHandleNew();
+            // onClickHandleNew();
           } else {
             setMessage("Lưu thất bại");
             setShowAlert(true);
           }
         } else if (update) {
           const getShow = await axios.get(
-            `http://54.169.2.153:9000/cineza/api/v1/show/get-all-by-rap/${code}`
+            `http://localhost:9000/cineza/api/v1/show/get-all-by-rap/${code}`
           );
           const currentDate = new Date();
           let newArray = [];
 
           //formatDayHandle(currentDate) <= formatDayHandle(item.showDate)
           getShow.data.forEach((item) => {
-            let date = `${new Date(item.showDate).getFullYear()}-${new Date(item.showDate).getMonth() + 1
-              }-${new Date(item.showDate).getDate()}`;
+            let date = `${new Date(item.showDate).getFullYear()}-${String(
+              new Date(item.showDate).getMonth() + 1
+            ).padStart(2, "0")}-${String(
+              new Date(item.showDate).getDate()
+            ).padStart(2, "0")}`;
 
             if (formatDayHandle(currentDate) <= date) {
               console.log(`Ngày chiếu: ${date}`);
@@ -533,7 +583,7 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
           });
           if (newArray.length === 0) {
             const response = await axios.put(
-              `http://54.169.2.153:9000/cineza/api/v1/rap/put/` + code,
+              `http://localhost:9000/cineza/api/v1/rap/put/` + code,
               rap
             );
             if (response.status === 200) {
@@ -664,7 +714,7 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
                     onFocus={onHandleFocusName}
                   />
                   {isValidName && (
-                    <p style={{ color: "red" }}>"Không để trống"</p>
+                    <p style={{ color: "red" }}>Không để trống</p>
                   )}
                 </div>
               </div>
@@ -681,7 +731,7 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
                     onFocus={onHandleFocusNumberRap}
                   />
                   {isValidNumberRap && (
-                    <p style={{ color: "red" }}>"Không để trống"</p>
+                    <p style={{ color: "red" }}>Không để trống</p>
                   )}
                 </div>
               </div>
@@ -697,10 +747,15 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
                 <div className="input-rap-container">
                   <TimePicker
                     format="hh:mm a"
+                    disabled={!edit}
                     openClockOnFocus={false}
                     value={openTime}
                     onChange={(text) => onChangeHandleOpenTime(text)}
+                    onFocus={onHandleFocusOpenTime}
                   />
+                  {isValidOpenTime && (
+                    <p style={{ color: "red" }}>Chưa chọn thời gian mở</p>
+                  )}
                 </div>
               </div>
               <div className="rap-detail-input">
@@ -710,9 +765,16 @@ const RapDetail = ({ codeRapBy, onClickHandleClose, addBtn }) => {
                   <TimePicker
                     format="hh:mm a"
                     value={closeTime}
+                    disabled={!edit}
                     openClockOnFocus={false}
                     onChange={(e) => onChangeHandleCloseTime(e)}
+                    onFocus={onHandleFocusCloseTime}
                   />
+                  {isValidCloseTime && (
+                    <p style={{ color: "red" }}>
+                      Thời gian đóng phải lớn hơn thời gian mở
+                    </p>
+                  )}
                 </div>
               </div>
               <div className="rap-detail-input">

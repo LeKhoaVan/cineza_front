@@ -144,7 +144,7 @@ const PromotionDetail = ({ codePromotion, onClickHandleClose, addBtn }) => {
   useEffect(() => {
     const getAllMovie = async () => {
       const response = await axios.get(
-        `http://54.169.2.153:9000/cineza/api/v1/movie/get-all`
+        `http://localhost:9000/cineza/api/v1/movie/get-all`
       );
       if (response.status == 200) {
         setDataMovie(response.data);
@@ -245,7 +245,7 @@ const PromotionDetail = ({ codePromotion, onClickHandleClose, addBtn }) => {
     try {
       if (editCode) {
         const response = await axios.post(
-          `http://54.169.2.153:9000/cineza/api/v1/promotion-line/create`,
+          `http://localhost:9000/cineza/api/v1/promotion-line/create`,
           promotionLine
         );
 
@@ -262,7 +262,7 @@ const PromotionDetail = ({ codePromotion, onClickHandleClose, addBtn }) => {
         console.log(promotionDetail);
 
         const responseDetail = await axios.post(
-          `http://54.169.2.153:9000/cineza/api/v1/promotion-detail/create`,
+          `http://localhost:9000/cineza/api/v1/promotion-detail/create`,
           promotionDetail
         );
 
@@ -275,7 +275,7 @@ const PromotionDetail = ({ codePromotion, onClickHandleClose, addBtn }) => {
         }
       } else if (update) {
         // const response = await axios.put(
-        //     `http://54.169.2.153:9000/cineza/api/v1/value/user/put/` + codeUser,
+        //     `http://localhost:9000/cineza/api/v1/value/user/put/` + codeUser,
         //     user
         // );
         // if (response.status === 200) {
@@ -311,7 +311,7 @@ const PromotionDetail = ({ codePromotion, onClickHandleClose, addBtn }) => {
       }
       try {
         const response = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/promotion-line/get-by-code/` +
+          `http://localhost:9000/cineza/api/v1/promotion-line/get-by-code/` +
           codePromotion
         );
 
@@ -331,7 +331,7 @@ const PromotionDetail = ({ codePromotion, onClickHandleClose, addBtn }) => {
           }
 
           const responseDetail = await axios.get(
-            `http://54.169.2.153:9000/cineza/api/v1/promotion-detail/get-all/` +
+            `http://localhost:9000/cineza/api/v1/promotion-detail/get-all/` +
             response.data.code
           );
           console.log(responseDetail);
@@ -370,7 +370,7 @@ const PromotionDetail = ({ codePromotion, onClickHandleClose, addBtn }) => {
     const getAllPromotionHeader = async () => {
       try {
         const allPromotionHeader = await axios.get(
-          "http://54.169.2.153:9000/cineza/api/v1/promotion-header/get-all"
+          "http://localhost:9000/cineza/api/v1/promotion-header/get-all"
         );
         if (allPromotionHeader.status === 200) {
           setDataPromotioHeader(allPromotionHeader.data);

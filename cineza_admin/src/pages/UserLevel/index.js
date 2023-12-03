@@ -53,7 +53,7 @@ const UserLevel = () => {
   // useEffect(() => {
   //     const getAddressByType = async () => {
   //         try {
-  //             const response = await axios.get(`http://54.169.2.153:9000/cineza/api/v1/value/get-level?level=` + levelAddress);
+  //             const response = await axios.get(`http://localhost:9000/cineza/api/v1/value/get-level?level=` + levelAddress);
   //             setAddress(response.data);
   //         } catch (error) {
   //             console.error("error get address by type in VTDLLevel: " + error);

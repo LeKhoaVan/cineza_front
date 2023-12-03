@@ -195,7 +195,7 @@ const RoomDetail = ({ rapCode, codeRoom, onClickHandleClose, addBtn }) => {
     } else {
       const getRoom = async () => {
         const result = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/room/get-by-code/${codeRoom}`
+          `http://localhost:9000/cineza/api/v1/room/get-by-code/${codeRoom}`
         );
         if (result.status === 200) {
           setCode(result.data.code);
@@ -213,7 +213,7 @@ const RoomDetail = ({ rapCode, codeRoom, onClickHandleClose, addBtn }) => {
   //   const getAllRap = async () => {
   //     try {
   //       const allRap = await axios.get(
-  //         "http://54.169.2.153:9000/cineza/api/v1/rap/get-all"
+  //         "http://localhost:9000/cineza/api/v1/rap/get-all"
   //       );
   //       if (allRap.status === 200) {
   //         setDataRap(allRap.data);
@@ -232,7 +232,7 @@ const RoomDetail = ({ rapCode, codeRoom, onClickHandleClose, addBtn }) => {
     const getSeats = async () => {
       try {
         const result = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/seat/get-all-by-room/${codeRoom}`
+          `http://localhost:9000/cineza/api/v1/seat/get-all-by-room/${codeRoom}`
         );
         if (result.status === 200) {
           setSeats(result.data);
@@ -250,7 +250,7 @@ const RoomDetail = ({ rapCode, codeRoom, onClickHandleClose, addBtn }) => {
     const getSeats = async () => {
       try {
         const result = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/seat/get-all-by-room-type/ts01/${codeRoom}`
+          `http://localhost:9000/cineza/api/v1/seat/get-all-by-room-type/ts01/${codeRoom}`
         );
         if (result.status === 200) {
           setComunitySeats(result.data);
@@ -268,7 +268,7 @@ const RoomDetail = ({ rapCode, codeRoom, onClickHandleClose, addBtn }) => {
     const getSeats = async () => {
       try {
         const result = await axios.get(
-          `http://54.169.2.153:9000/cineza/api/v1/seat/get-all-by-room-type/ts02/${codeRoom}`
+          `http://localhost:9000/cineza/api/v1/seat/get-all-by-room-type/ts02/${codeRoom}`
         );
         if (result.status === 200) {
           setVipSeats(result.data);
@@ -298,6 +298,9 @@ const RoomDetail = ({ rapCode, codeRoom, onClickHandleClose, addBtn }) => {
     setName("");
     setStatus("");
     setCodeRap(codeRap);
+    setSeats([])
+    setComunitySeats([])
+    setVipSeats([])
   };
 
   const onClickSave = async () => {
@@ -326,7 +329,7 @@ const RoomDetail = ({ rapCode, codeRoom, onClickHandleClose, addBtn }) => {
         console.log(room);
         if (editCode) {
           const response = await axios.post(
-            `http://54.169.2.153:9000/cineza/api/v1/room/create`,
+            `http://localhost:9000/cineza/api/v1/room/create`,
             room
           );
           if (response.status === 201) {
@@ -340,21 +343,38 @@ const RoomDetail = ({ rapCode, codeRoom, onClickHandleClose, addBtn }) => {
           }
         } else if (update) {
           const getShow = await axios.get(
-            `http://54.169.2.153:9000/cineza/api/v1/show/get-all-by-room/${code}`
+            `http://localhost:9000/cineza/api/v1/show/get-all-by-room/${code}`
           );
           const currentDate = new Date();
           let newArray = [];
+          let dataShow = getShow.data.map((s) => {
+            let newDate = new Date(s.showDate);
 
-          getShow.data.forEach((item) => {
-            if (
-              formatDayHandle(currentDate) <= formatDayHandle(item.showDate)
-            ) {
-              newArray = { ...item };
-            }
+            s.showDate = `${newDate.getFullYear()}-${String(
+              newDate.getMonth() + 1
+            ).padStart(2, "0")}-${String(newDate.getDate()).padStart(2, "0")}`;
+
+            return s;
           });
+          dataShow.forEach((item) => {
+            if (
+              formatDayHandle(currentDate) < formatDayHandle(item.showDate) ||
+              formatDayHandle(currentDate) == formatDayHandle(item.showDate)
+            ) {
+              newArray = [...newArray, item];
+            }
+
+            console.log(
+              formatDayHandle(currentDate),
+              formatDayHandle(item.showDate),
+              formatDayHandle(currentDate) == formatDayHandle(item.showDate)
+            );
+          });
+
+          console.log(newArray.length);
           if (newArray.length === 0) {
             const response = await axios.put(
-              `http://54.169.2.153:9000/cineza/api/v1/room/put/` + code,
+              `http://localhost:9000/cineza/api/v1/room/put/` + code,
               room
             );
             if (response.status === 200) {
@@ -408,7 +428,7 @@ const RoomDetail = ({ rapCode, codeRoom, onClickHandleClose, addBtn }) => {
             </div>
             <div
               className="room-detail-header-close"
-              onClick={onClickHandleClose}
+              onClick={() => onClickHandleClose(codeRap)}
             >
               <img className="iconClose" src={iconClose} alt="close" />
             </div>
