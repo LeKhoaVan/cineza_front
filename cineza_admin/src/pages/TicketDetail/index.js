@@ -169,7 +169,7 @@ const TicketDetail = ({ codeTicket, onClickHandleClose, addBtn }) => {
       console.log(ticket);
       if (editCode) {
         const response = await axios.post(
-          `http://13.212.34.123:9000/cineza/api/v1/ticket/create`,
+          `http://47.128.146.135:9000/cineza/api/v1/ticket/create`,
           ticket
         );
         if (response.status === 201) {
@@ -183,7 +183,7 @@ const TicketDetail = ({ codeTicket, onClickHandleClose, addBtn }) => {
       }
       // else if (update) {
       //   const response = await axios.put(
-      //     `http://13.212.34.123:9000/cineza/api/v1/ticket/put/` + code,
+      //     `http://47.128.146.135:9000/cineza/api/v1/ticket/put/` + code,
       //     showTime
       //   );
       //   if (response.status === 200) {
@@ -216,7 +216,7 @@ const TicketDetail = ({ codeTicket, onClickHandleClose, addBtn }) => {
     const getTicket = async () => {
       try {
         const response = await axios.get(
-          `http://13.212.34.123:9000/cineza/api/v1/ticket/get-by-code/${codeTicket}`
+          `http://47.128.146.135:9000/cineza/api/v1/ticket/get-by-code/${codeTicket}`
         );
         if (response.status === 200) {
           setCodeShowing(response.data.codeShowing);
@@ -245,7 +245,7 @@ const TicketDetail = ({ codeTicket, onClickHandleClose, addBtn }) => {
     const getAllShowing = async () => {
       try {
         const allShowing = await axios.get(
-          `http://13.212.34.123:9000/cineza/api/v1/show/get-all`
+          `http://47.128.146.135:9000/cineza/api/v1/show/get-all`
         );
         if (allShowing.status === 200) {
           setDataShowing(allShowing.data);
@@ -265,7 +265,7 @@ const TicketDetail = ({ codeTicket, onClickHandleClose, addBtn }) => {
     const getAllSeat = async () => {
       try {
         const allSeat = await axios.get(
-          `http://13.212.34.123:9000/cineza/api/v1/seat/get-all`
+          `http://47.128.146.135:9000/cineza/api/v1/seat/get-all`
         );
         if (allSeat.status === 200) {
           setDataSeat(allSeat.data);
@@ -285,7 +285,7 @@ const TicketDetail = ({ codeTicket, onClickHandleClose, addBtn }) => {
     const getData = async () => {
       try {
         const result = await axios.get(
-          "http://13.212.34.123:9000/cineza/api/v1/value/user/get-all"
+          "http://47.128.146.135:9000/cineza/api/v1/value/user/get-all"
         );
         if (result.status == 200) {
           const dataSetup = result.data.map((item) => {

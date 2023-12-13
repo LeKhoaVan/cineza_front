@@ -159,7 +159,7 @@ const PromotionHeaderEdit = ({ codePromotion, onClickHandleClose, addBtn }) => {
       console.log(promotionHeader);
       if (editCode) {
         const response = await axios.post(
-          `http://13.212.34.123:9000/cineza/api/v1/promotion-header/create`,
+          `http://47.128.146.135:9000/cineza/api/v1/promotion-header/create`,
           promotionHeader
         );
         if (response.status === 201) {
@@ -171,7 +171,7 @@ const PromotionHeaderEdit = ({ codePromotion, onClickHandleClose, addBtn }) => {
         }
       } else if (update) {
         // const response = await axios.put(
-        //     `http://13.212.34.123:9000/cineza/api/v1/value/user/put/` + codeUser,
+        //     `http://47.128.146.135:9000/cineza/api/v1/value/user/put/` + codeUser,
         //     user
         // );
         // if (response.status === 200) {
@@ -208,7 +208,7 @@ const PromotionHeaderEdit = ({ codePromotion, onClickHandleClose, addBtn }) => {
       }
       try {
         const response = await axios.get(
-          `http://13.212.34.123:9000/cineza/api/v1/promotion-header/get-code/${codePromotion}`
+          `http://47.128.146.135:9000/cineza/api/v1/promotion-header/get-code/${codePromotion}`
         );
         if (response.status === 200) {
           setCode(response.data.code);

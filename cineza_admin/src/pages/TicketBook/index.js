@@ -60,7 +60,7 @@ const TicketBook = () => {
     useEffect(() => {
         const loadMovieOrRap = async () => {
             if (selectBy === "phim") {
-                const movies = await axios.get(`http://13.212.34.123:9000/cineza/api/v1/movie/get-all`);
+                const movies = await axios.get(`http://47.128.146.135:9000/cineza/api/v1/movie/get-all`);
                 if (movies.status === 200) {
                     setAllMovie(movies.data);
                     setAllRap([])
@@ -70,7 +70,7 @@ const TicketBook = () => {
                     console.error("get all movie fail");
                 }
             } else if (selectBy === "rap") {
-                const raps = await axios.get(`http://13.212.34.123:9000/cineza/api/v1/rap/get-all`);
+                const raps = await axios.get(`http://47.128.146.135:9000/cineza/api/v1/rap/get-all`);
                 if (raps.status === 200) {
                     setAllRap(raps.data);
                     setAllMovie([])
@@ -99,7 +99,7 @@ const TicketBook = () => {
     const handleClick = async () => {
         try {
             if (codeShowing != "" && codeMovie != "") {
-                const saveTicket = await axios.post(`http://13.212.34.123:9000/cineza/api/v1/ticket/create`, {
+                const saveTicket = await axios.post(`http://47.128.146.135:9000/cineza/api/v1/ticket/create`, {
                     "codeShowing": codeShowing,
                     "codeSeat": codeSeat,
                     "codeUser": "user02",
@@ -114,11 +114,11 @@ const TicketBook = () => {
     useEffect(() => {
         const loadRap = async () => {
             if (codeMovie != "") {
-                const showings = await axios.get(`http://13.212.34.123:9000/cineza/api/v1/show/get-all-by-movie/${codeMovie}`)
+                const showings = await axios.get(`http://47.128.146.135:9000/cineza/api/v1/show/get-all-by-movie/${codeMovie}`)
 
                 // Sử dụng Set để loại bỏ rạp trùng lặp
                 // const uniqueRaps = [...showings.data?.map(async (show) => {
-                //     const rap = await axios.get(`http://13.212.34.123:9000/cineza/api/v1/rap/get-by-code/${show.codeRap}`)
+                //     const rap = await axios.get(`http://47.128.146.135:9000/cineza/api/v1/rap/get-by-code/${show.codeRap}`)
                 //     return rap.data
                 // })];
                 // console.log(uniqueRaps)
@@ -126,7 +126,7 @@ const TicketBook = () => {
 
                 async function fetchData() {
                     const rapPromises = showings.data?.map(async (show) => {
-                        const rapResponse = await axios.get(`http://13.212.34.123:9000/cineza/api/v1/rap/get-by-code/${show.codeRap}`);
+                        const rapResponse = await axios.get(`http://47.128.146.135:9000/cineza/api/v1/rap/get-by-code/${show.codeRap}`);
                         return rapResponse.data;
                     });
 
@@ -147,11 +147,11 @@ const TicketBook = () => {
     useEffect(() => {
         const loadMovie = async () => {
             if (codeRap != "") {
-                const showings = await axios.get(`http://13.212.34.123:9000/cineza/api/v1/show/get-all-by-rap/${codeRap}`)
+                const showings = await axios.get(`http://47.128.146.135:9000/cineza/api/v1/show/get-all-by-rap/${codeRap}`)
 
                 async function fetchDataMovie() {
                     const moviePromises = showings.data?.map(async (show) => {
-                        const movieResponse = await axios.get(`http://13.212.34.123:9000/cineza/api/v1/movie/${show.codeMovie}`);
+                        const movieResponse = await axios.get(`http://47.128.146.135:9000/cineza/api/v1/movie/${show.codeMovie}`);
                         return movieResponse.data;
                     });
 
@@ -172,7 +172,7 @@ const TicketBook = () => {
     useEffect(() => {
         if (codeMovie != "" && codeRap != "") {
             const getShowing = async () => {
-                const showings = await axios.get(`http://13.212.34.123:9000/cineza/api/v1/show//get-by-movie-and-rap/${codeMovie}/${codeRap}`)
+                const showings = await axios.get(`http://47.128.146.135:9000/cineza/api/v1/show//get-by-movie-and-rap/${codeMovie}/${codeRap}`)
                 if (showings.status === 200) {
                     setAllShowing(showings.data);
                 } else {
@@ -186,10 +186,10 @@ const TicketBook = () => {
     useEffect(() => {
         if (codeShowing != "") {
             const getShowing = async () => {
-                const showing = await axios.get(`http://13.212.34.123:9000/cineza/api/v1/show/get-by-code/${codeShowing}`)
+                const showing = await axios.get(`http://47.128.146.135:9000/cineza/api/v1/show/get-by-code/${codeShowing}`)
                 setShowing(showing.data)
 
-                const allSeat = await axios.get(`http://13.212.34.123:9000/cineza/api/v1/seat/get-all-by-room/${showing.data.codeRoom}`)
+                const allSeat = await axios.get(`http://47.128.146.135:9000/cineza/api/v1/seat/get-all-by-room/${showing.data.codeRoom}`)
                 const resutl = allSeat.data
                 setAllSeat(resutl);
             };

@@ -74,7 +74,7 @@ const User = () => {
     try {
       if (levelUser != null) {
         const result = await axios.get(
-          `http://13.212.34.123:9000/cineza/api/v1/user/get-by-type/${levelUser}`
+          `http://47.128.146.135:9000/cineza/api/v1/user/get-by-type/${levelUser}`
         );
         console.log(result)
         if (result.status == 200) {
@@ -88,7 +88,7 @@ const User = () => {
         }
       } else {
         const result = await axios.get(
-          `http://13.212.34.123:9000/cineza/api/v1/user/get-by-type/${context[0].type}`
+          `http://47.128.146.135:9000/cineza/api/v1/user/get-by-type/${context[0].type}`
         );
         console.log(result)
         if (result.status == 200) {

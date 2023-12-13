@@ -38,7 +38,7 @@ const Movie = () => {
   useEffect(() => {
     const findMovie = async () => {
       const movies = await axios.get(
-        `http://13.212.34.123:9000/cineza/api/v1/movie/get-all?movieName=${search}`
+        `http://47.128.146.135:9000/cineza/api/v1/movie/get-all?movieName=${search}`
       );
       if (movies.status === 200) {
         setMovieData(movies.data);
@@ -52,7 +52,7 @@ const Movie = () => {
   // get all movie
   const getAllMovie = async () => {
     const allMovie = await axios.get(
-      `http://13.212.34.123:9000/cineza/api/v1/movie/get-all`
+      `http://47.128.146.135:9000/cineza/api/v1/movie/get-all`
     );
     if (allMovie.status == 200) {
       setMovieData(allMovie.data);

@@ -94,7 +94,7 @@ const VTDL = () => {
   };
 
   const onClickHandleCloseP = async () => {
-    window.location.href = "http://13.212.34.123:3000/cineza/admin/vtdl";
+    window.location.href = "http://47.128.146.135:3000/cineza/admin/vtdl";
     setOpenModelAdd(false);
   };
   return (

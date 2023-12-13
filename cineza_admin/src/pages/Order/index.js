@@ -67,7 +67,7 @@ const Order = () => {
   useEffect(() => {
     const findOrder = async () => {
       const orders = await axios.get(
-        `http://13.212.34.123:9000/cineza/api/v1/order/get-all?datePay=${datePay}`
+        `http://47.128.146.135:9000/cineza/api/v1/order/get-all?datePay=${datePay}`
       );
       if (orders.status == 200) {
         const dataResult = orders.data.map((item) => {
@@ -88,7 +88,7 @@ const Order = () => {
   const getData = async () => {
     try {
       const result = await axios.get(
-        "http://13.212.34.123:9000/cineza/api/v1/order/get-all"
+        "http://47.128.146.135:9000/cineza/api/v1/order/get-all"
       );
       if (result.status == 200) {
         const dataResult = result.data.map((item) => {

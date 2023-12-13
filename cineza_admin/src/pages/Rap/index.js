@@ -65,7 +65,7 @@ const Rap = () => {
   const getData = async () => {
     try {
       const result = await axios.get(
-        "http://13.212.34.123:9000/cineza/api/v1/rap/get-all"
+        "http://47.128.146.135:9000/cineza/api/v1/rap/get-all"
       );
       if (result.status == 200) {
         const resutlData = result.data.map((r) => {
