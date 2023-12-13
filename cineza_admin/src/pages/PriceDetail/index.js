@@ -67,7 +67,8 @@ const PriceDetail = ({ headerCode, codePrice, onClickHandleClose, addBtn }) => {
     setCode(text.target.value);
   };
   const onChangeHandleValue = (text) => {
-    setValue(text.target.value);
+    const test = text.target.value
+    setValue(test);
   };
   const handleChangeComboboxCodeTypeSeat = (text) => {
     setCodeTypeSeat(text.target.value);
@@ -148,7 +149,7 @@ const PriceDetail = ({ headerCode, codePrice, onClickHandleClose, addBtn }) => {
       const getPrice = async () => {
         try {
           const response = await axios.get(
-            `http://54.169.84.199:9000/cineza/api/v1/price/get-by-code/${codePrice}`
+            `http://localhost:9000/cineza/api/v1/price/get-by-code/${codePrice}`
           );
           if (response.status === 200) {
             setCode(response.data.code);
@@ -174,7 +175,7 @@ const PriceDetail = ({ headerCode, codePrice, onClickHandleClose, addBtn }) => {
     const getAllTypeSeat = async () => {
       try {
         const allTypeSeat = await axios.get(
-          "http://54.169.84.199:9000/cineza/api/v1/type-seat/get-all"
+          "http://localhost:9000/cineza/api/v1/type-seat/get-all"
         );
         if (allTypeSeat.status === 200) {
           setDataTypeSeat(allTypeSeat.data);
@@ -227,21 +228,16 @@ const PriceDetail = ({ headerCode, codePrice, onClickHandleClose, addBtn }) => {
       codeTypeSeat: codeTypeSeat,
       status: status,
     };
-    if (
-      !isValidCode &
-      !isValidValue &
-      !isValidCodeTypeSeat &
-      !isValidStatus
-    ) {
+    if (!isValidCode & !isValidValue & !isValidCodeTypeSeat & !isValidStatus) {
       try {
         console.log(price);
         if (editCode) {
           const check = await axios.get(
-            `http://54.169.84.199:9000/cineza/api/v1/price/check-time/${codeHeader}/${codeTypeSeat}`
+            `http://localhost:9000/cineza/api/v1/price/check-time/${codeHeader}/${codeTypeSeat}`
           );
           if (check.data.length == 0) {
             const response = await axios.post(
-              `http://54.169.84.199:9000/cineza/api/v1/price/create`,
+              `http://localhost:9000/cineza/api/v1/price/create`,
               price
             );
             if (response.status === 201) {
@@ -249,7 +245,7 @@ const PriceDetail = ({ headerCode, codePrice, onClickHandleClose, addBtn }) => {
               setShowAlert(true);
               onClickHandleNew();
             } else {
-              setMessage("Lưu thất bại");
+              setMessage("Lưu thất bại. Mã đã tồn tại");
               setShowAlert(true);
             }
           } else {
@@ -259,11 +255,11 @@ const PriceDetail = ({ headerCode, codePrice, onClickHandleClose, addBtn }) => {
           }
         } else if (update) {
           const check = await axios.get(
-            `http://54.169.84.199:9000/cineza/api/v1/price/check-time/${codeHeader}/${codeTypeSeat}`
+            `http://localhost:9000/cineza/api/v1/price/check-time/${codeHeader}/${codeTypeSeat}`
           );
           if (check.data.length == 0) {
             const response = await axios.put(
-              `http://54.169.84.199:9000/cineza/api/v1/price/put/` + code,
+              `http://localhost:9000/cineza/api/v1/price/put/` + code,
               price
             );
             if (response.status === 200) {
@@ -282,15 +278,14 @@ const PriceDetail = ({ headerCode, codePrice, onClickHandleClose, addBtn }) => {
         }
       } catch (error) {
         console.log("save address fail: " + error);
-        setMessage("Lưu thất bại");
+        setMessage("Lưu thất bại. Mã đã tồn tại");
         setShowAlert(true);
       }
     } else {
       console.log("lưu sai");
-      setMessage("Vui lòng nhập đầy đủ");
+      setMessage("Chưa nhập đầy đủ thông tin hoặc thông tin nhập chưa đúng!");
       setShowAlert(true);
     }
-
   };
 
   const handleConfirm = async () => {
@@ -298,10 +293,10 @@ const PriceDetail = ({ headerCode, codePrice, onClickHandleClose, addBtn }) => {
       try {
         if (priceTam != null) {
           const dataUpdate = await axios.put(
-            `http://54.169.84.199:9000/cineza/api/v1/price/update-status-all/${priceTam.codeHeader}/${priceTam.codeTypeSeat}`
+            `http://localhost:9000/cineza/api/v1/price/update-status-all/${priceTam.codeHeader}/${priceTam.codeTypeSeat}`
           );
           const response = await axios.post(
-            `http://54.169.84.199:9000/cineza/api/v1/price/create`,
+            `http://localhost:9000/cineza/api/v1/price/create`,
             priceTam
           );
           if (response.status === 201) {
@@ -320,10 +315,10 @@ const PriceDetail = ({ headerCode, codePrice, onClickHandleClose, addBtn }) => {
       try {
         if (priceTam != null) {
           const dataUpdate = await axios.put(
-            `http://54.169.84.199:9000/cineza/api/v1/price/update-status-all/${priceTam.codeHeader}/${priceTam.codeTypeSeat}`
+            `http://localhost:9000/cineza/api/v1/price/update-status-all/${priceTam.codeHeader}/${priceTam.codeTypeSeat}`
           );
           const response = await axios.put(
-            `http://54.169.84.199:9000/cineza/api/v1/price/put/` + code,
+            `http://localhost:9000/cineza/api/v1/price/put/` + code,
             priceTam
           );
           if (response.status === 200) {

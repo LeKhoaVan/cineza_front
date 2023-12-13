@@ -53,7 +53,7 @@ const PriceHeader = () => {
   const getData = async () => {
     try {
       const result = await axios.get(
-        "http://54.169.84.199:9000/cineza/api/v1/price-header/get-all"
+        "http://localhost:9000/cineza/api/v1/price-header/get-all"
       );
       if (result.status == 200) {
         const dataResult = result.data.map((item) => {

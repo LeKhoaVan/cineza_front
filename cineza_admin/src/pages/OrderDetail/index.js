@@ -150,13 +150,14 @@ const OrderDetail = ({ codeOrder, onClickHandleClose }) => {
     const getRooms = async () => {
       try {
         const result = await axios.get(
-          `http://54.169.84.199:9000/cineza/api/v1/order/get-by-code/${codeOrder}`
+          `http://localhost:9000/cineza/api/v1/order/get-by-code/${codeOrder}`
         );
         if (result.status === 200) {
           const dataResult = result.data.map((item) => {
             return {
               ...item,
               datePay: `${formatDateHandle(item.datePay)} ${new Date(item.datePay).getHours()}:${new Date(item.datePay).getMinutes()}`,
+              priceItemOrder: item.priceItemOrder.toLocaleString('vi-VN')
             };
           });
           setOrders(dataResult);

@@ -84,7 +84,7 @@ const VTDLDetail = ({ levelAr, codeAddressBy, onClickHandleClose, addBtn }) => {
     setIdParentAddress(event.target.value);
   };
   const onChangeCodeAddress = (event) => {
-    console.log(event.target.value)
+    console.log(event.target.value);
     setCodeAddress(event.target.value);
   };
   const onChangeNameAddress = (event) => {
@@ -173,7 +173,7 @@ const VTDLDetail = ({ levelAr, codeAddressBy, onClickHandleClose, addBtn }) => {
       const getAddressByCode = async () => {
         try {
           const response = await axios.get(
-            `http://54.169.84.199:9000/cineza/api/v1/address/get-by-code/${codeAddressBy}`
+            `http://localhost:9000/cineza/api/v1/address/get-by-code/${codeAddressBy}`
           );
 
           if (response.status === 200) {
@@ -208,7 +208,7 @@ const VTDLDetail = ({ levelAr, codeAddressBy, onClickHandleClose, addBtn }) => {
     setCreateNew(true);
     setEditCode(true);
     setEdit(true);
-    setEditParent(true)
+    setEditParent(true);
 
     setCodeAddress("");
     setNameAddress("");
@@ -240,42 +240,52 @@ const VTDLDetail = ({ levelAr, codeAddressBy, onClickHandleClose, addBtn }) => {
       status: statusAddress,
     };
     console.log(address);
-    try {
-      if (editCode) {
-        const response = await axios.post(
-          `http://54.169.84.199:9000/cineza/api/v1/address/create`,
-          address
-        );
-        if (response.status === 201) {
-          console.log("save success");
-          setMessage("Lưu thành công");
-          setShowAlert(true);
-          onClickHandleNew();
-        } else {
-          setMessage("Lưu thất bại");
-          setShowAlert(true);
+    if (
+      !isValidCodeAddress &
+      !isValidNameAddress &
+      !isValidParentAddress &
+      !isValidStatusAddress
+    ) {
+      try {
+        if (editCode) {
+          const response = await axios.post(
+            `http://localhost:9000/cineza/api/v1/address/create`,
+            address
+          );
+          if (response.status === 201) {
+            console.log("save success");
+            setMessage("Lưu thành công");
+            setShowAlert(true);
+            onClickHandleNew();
+          } else {
+            setMessage("Lưu thất bại. Mã đã tồn tại");
+            setShowAlert(true);
+          }
+        } else if (update) {
+          const response = await axios.put(
+            `http://localhost:9000/cineza/api/v1/address/update/${codeAddress}`,
+            address
+          );
+          if (response.status === 200) {
+            console.log("save success");
+            setMessage("Cập nhật thành công");
+            setShowAlert(true);
+          } else {
+            setMessage("Cập thất bại");
+            setShowAlert(true);
+          }
         }
-      } else if (update) {
-        const response = await axios.put(
-          `http://54.169.84.199:9000/cineza/api/v1/address/update/${codeAddress}`,
-          address
-        );
-        if (response.status === 200) {
-          console.log("save success");
-          setMessage("Cập nhật thành công");
-          setShowAlert(true);
-        } else {
-          setMessage("Cập thất bại");
-          setShowAlert(true);
-        }
+      } catch (error) {
+        setMessage("Lưu thất bại");
+        setShowAlert(true);
+        console.log("save address fail: " + error);
       }
-    } catch (error) {
-      setMessage("Lưu thất bại");
+    } else {
+      console.log("lưu sai");
+      setMessage("Chưa nhập đầy đủ thông tin hoặc thông tin nhập chưa đúng!");
       setShowAlert(true);
-      console.log("save address fail: " + error);
     }
   };
-
 
   useEffect(() => {
     const getDataCompoboxTrucThuoc = async () => {
@@ -288,43 +298,39 @@ const VTDLDetail = ({ levelAr, codeAddressBy, onClickHandleClose, addBtn }) => {
           } else if (levelAddress === "TINH/TP") {
             //get country
             const allCountry = await axios.get(
-              `http://54.169.84.199:9000/cineza/api/v1/address/get-by-level?levelAddress=QUOCGIA`
+              `http://localhost:9000/cineza/api/v1/address/get-by-level?levelAddress=QUOCGIA`
             );
             if (allCountry.status === 200) {
               setDataComboboxTrucThuoc(allCountry.data);
             } else {
               console.error("get all country error");
             }
-
           } else if (levelAddress === "HUYEN/QUAN") {
             // get city
             const allCity = await axios.get(
-              `http://54.169.84.199:9000/cineza/api/v1/address/get-by-level?levelAddress=TINH/TP`
+              `http://localhost:9000/cineza/api/v1/address/get-by-level?levelAddress=TINH/TP`
             );
             if (allCity.status === 200) {
               setDataComboboxTrucThuoc(allCity.data);
             } else {
               console.error("get all city error");
             }
-
           } else if (levelAddress === "XA/PHUONG") {
             // get district
             const allDistrict = await axios.get(
-              `http://54.169.84.199:9000/cineza/api/v1/address/get-by-level?levelAddress=HUYEN/QUAN`
+              `http://localhost:9000/cineza/api/v1/address/get-by-level?levelAddress=HUYEN/QUAN`
             );
             if (allDistrict.status === 200) {
               setDataComboboxTrucThuoc(allDistrict.data);
             } else {
               console.error("get all country error");
             }
-
           }
-
         }
       } catch (error) {
-        console.log(" get combobox :" + error)
+        console.log(" get combobox :" + error);
       }
-    }
+    };
     getDataCompoboxTrucThuoc();
   }, [levelAddress]);
 

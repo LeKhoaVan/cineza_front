@@ -1,25 +1,27 @@
 .alert-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .alert {
-    width: 110px;
-    height: 60px;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    padding-top: 29px;
-    background: white;
-    padding: 42px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  width: 210px;
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  /* padding-top: 20px; */
+  background: white;
+  /* padding: 42px; */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  align-items: center;
 }

@@ -56,7 +56,7 @@ const PromotionLine = () => {
   const codePromotionURI = new URLSearchParams(location.search).get("code");
 
   const onClickHandleBack = () => {
-    window.location.href = "http://54.169.84.199:3000/cineza/admin/promotions";
+    window.location.href = "http://localhost:3000/cineza/admin/promotions";
   }
 
   const onClickHandleBtnAdd = () => {
@@ -79,7 +79,7 @@ const PromotionLine = () => {
       try {
         setUriCode(codePromotionURI)
         const response = await axios.get(
-          `http://54.169.84.199:9000/cineza/api/v1/promotion-line/get-all-by-header/${codePromotionURI}`
+          `http://localhost:9000/cineza/api/v1/promotion-line/get-all-by-header/${codePromotionURI}`
         );
         if (response.status === 200) {
           const dataResult = response.data.map((item) => {

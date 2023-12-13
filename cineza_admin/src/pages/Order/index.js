@@ -67,7 +67,7 @@ const Order = () => {
   useEffect(() => {
     const findOrder = async () => {
       const orders = await axios.get(
-        `http://54.169.84.199:9000/cineza/api/v1/order/get-all?datePay=${datePay}`
+        `http://localhost:9000/cineza/api/v1/order/get-all?datePay=${datePay}`
       );
       if (orders.status == 200) {
         const dataResult = orders.data.map((item) => {
@@ -88,15 +88,14 @@ const Order = () => {
   const getData = async () => {
     try {
       const result = await axios.get(
-        "http://54.169.84.199:9000/cineza/api/v1/order/get-all"
+        "http://localhost:9000/cineza/api/v1/order/get-all"
       );
       if (result.status == 200) {
         const dataResult = result.data.map((item) => {
           return {
             ...item,
-            datePay: `${formatDateHandle(item.datePay)} ${new Date(
-              item.datePay
-            ).getHours()}:${new Date(item.datePay).getMinutes()}`,
+            datePay: `${formatDateHandle(item.datePay)} ${new Date(item.datePay).getHours()}:${new Date(item.datePay).getMinutes()}`,
+            priceTotal: item.priceTotal.toLocaleString('vi-VN')
           };
         });
         setContext(dataResult);

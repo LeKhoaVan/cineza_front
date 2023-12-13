@@ -302,7 +302,7 @@ const UserDetail = ({ codeUserBy, onClickHandleClose, addBtn }) => {
       } else {
         try {
           const response = await axios.get(
-            `http://54.169.84.199:9000/cineza/api/v1/user/get-by-code/${codeUserBy}`
+            `http://localhost:9000/cineza/api/v1/user/get-by-code/${codeUserBy}`
           );
           if (response.status === 200) {
             setCodeUser(response.data.code);
@@ -344,7 +344,7 @@ const UserDetail = ({ codeUserBy, onClickHandleClose, addBtn }) => {
     const getAllCountry = async () => {
       try {
         const allCountry = await axios.get(
-          `http://54.169.84.199:9000/cineza/api/v1/address/get-by-level?levelAddress=QUOCGIA`
+          `http://localhost:9000/cineza/api/v1/address/get-by-level?levelAddress=QUOCGIA`
         );
         if (allCountry.status === 200) {
           setCountry(allCountry.data);
@@ -363,7 +363,7 @@ const UserDetail = ({ codeUserBy, onClickHandleClose, addBtn }) => {
     const getAllCountry = async () => {
       try {
         const allCity = await axios.get(
-          `http://54.169.84.199:9000/cineza/api/v1/address/get-by-level?levelAddress=TINH/TP`
+          `http://localhost:9000/cineza/api/v1/address/get-by-level?levelAddress=TINH/TP`
         );
         if (allCity.status === 200) {
           setCity(allCity.data);
@@ -382,7 +382,7 @@ const UserDetail = ({ codeUserBy, onClickHandleClose, addBtn }) => {
     const getAllCountry = async () => {
       try {
         const allDistrict = await axios.get(
-          `http://54.169.84.199:9000/cineza/api/v1/address/get-by-level?levelAddress=HUYEN/QUAN`
+          `http://localhost:9000/cineza/api/v1/address/get-by-level?levelAddress=HUYEN/QUAN`
         );
         if (allDistrict.status === 200) {
           setDistrict(allDistrict.data);
@@ -401,7 +401,7 @@ const UserDetail = ({ codeUserBy, onClickHandleClose, addBtn }) => {
     const getAllCountry = async () => {
       try {
         const allWard = await axios.get(
-          `http://54.169.84.199:9000/cineza/api/v1/address/get-by-level?levelAddress=XA/PHUONG`
+          `http://localhost:9000/cineza/api/v1/address/get-by-level?levelAddress=XA/PHUONG`
         );
         if (allWard.status === 200) {
           setWard(allWard.data);
@@ -419,7 +419,7 @@ const UserDetail = ({ codeUserBy, onClickHandleClose, addBtn }) => {
     if (countryId != "") {
       const getCity = async () => {
         const response = await axios.get(
-          `http://54.169.84.199:9000/cineza/api/v1/address/get-by-parent/${countryId}`
+          `http://localhost:9000/cineza/api/v1/address/get-by-parent/${countryId}`
         );
         if (response.status == 200) {
           setCity(response.data);
@@ -435,7 +435,7 @@ const UserDetail = ({ codeUserBy, onClickHandleClose, addBtn }) => {
     if (cityId != "") {
       const getDistrict = async () => {
         const response = await axios.get(
-          `http://54.169.84.199:9000/cineza/api/v1/address/get-by-parent/${cityId}`
+          `http://localhost:9000/cineza/api/v1/address/get-by-parent/${cityId}`
         );
         if (response.status == 200) {
           setDistrict(response.data);
@@ -451,7 +451,7 @@ const UserDetail = ({ codeUserBy, onClickHandleClose, addBtn }) => {
     if (districtId != "") {
       const getDistrict = async () => {
         const response = await axios.get(
-          `http://54.169.84.199:9000/cineza/api/v1/address/get-by-parent/${districtId}`
+          `http://localhost:9000/cineza/api/v1/address/get-by-parent/${districtId}`
         );
         if (response.status == 200) {
           setWard(response.data);
@@ -492,6 +492,7 @@ const UserDetail = ({ codeUserBy, onClickHandleClose, addBtn }) => {
     setWardId("");
     setNumberHome("");
     setDateOfBirthShow("");
+    setPassword("")
   };
 
   const onClickSave = async () => {
@@ -540,10 +541,14 @@ const UserDetail = ({ codeUserBy, onClickHandleClose, addBtn }) => {
       !isValidAddress
     ) {
       try {
-        console.log(user);
         if (editCode) {
+          let errorCreate = "";
+          const checkEmail = await axios.get(`http://localhost:9000/cineza/api/v1/user/check-email/${phoneUser}`)
+          if (checkEmail.data != "") {
+            errorCreate = "Email đã tồn tại";
+          }
           const response = await axios.post(
-            `http://54.169.84.199:9000/cineza/api/v1/user/create`,
+            `http://localhost:9000/cineza/api/v1/user/create`,
             user
           );
           if (response.status === 201) {
@@ -551,12 +556,16 @@ const UserDetail = ({ codeUserBy, onClickHandleClose, addBtn }) => {
             setShowAlert(true);
             onClickHandleNew();
           } else {
-            setMessage("Lưu thất bại");
+            if (errorCreate === "") {
+              setMessage("Lưu thất bại. Mã người dùng đã tồn tại");
+            } else {
+              setMessage(`Lưu thất bại. ${errorCreate}`);
+            }
             setShowAlert(true);
           }
         } else if (update) {
           const response = await axios.put(
-            `http://54.169.84.199:9000/cineza/api/v1/user/update/${codeUser}`,
+            `http://localhost:9000/cineza/api/v1/user/update/${codeUser}`,
             user
           );
           if (response.status === 200) {
@@ -575,7 +584,7 @@ const UserDetail = ({ codeUserBy, onClickHandleClose, addBtn }) => {
       }
     } else {
       console.log("lưu sai");
-      setMessage("Vui lòng nhập đầy đủ");
+      setMessage("Chưa nhập đầy đủ thông tin hoặc thông tin nhập chưa đúng!");
       setShowAlert(true);
     }
   };

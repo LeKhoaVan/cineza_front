@@ -3,9 +3,9 @@ const formatDateHandle = (inputDate) => {
   const date = new Date(inputDate);
 
   // Get day, month, and year components
-  const day = String(date.getUTCDate()).padStart(2, "0");
-  const month = String(date.getUTCMonth() + 1).padStart(2, "0"); // Months are 0-based, so add 1
-  const year = date.getUTCFullYear();
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-based, so add 1
+  const year = date.getFullYear();
 
   // Format the date as dd-MM-yyyy
   const formattedDate = `${day}-${month}-${year}`;
@@ -18,9 +18,9 @@ const formatDayHandle = (inputDate) => {
   const date = new Date(inputDate);
 
   // Get day, month, and year components
-  const day = String(date.getUTCDate()).padStart(2, "0");
-  const month = String(date.getUTCMonth() + 1).padStart(2, "0"); // Months are 0-based, so add 1
-  const year = date.getUTCFullYear();
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-based, so add 1
+  const year = date.getFullYear();
 
   // Format the date as dd-MM-yyyy
   const formattedDate = `${year}-${month}-${day}`;
