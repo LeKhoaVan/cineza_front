@@ -43,7 +43,7 @@ function Statistics() {
             } else {
                 yearData = year
             }
-            const dataStatistics = await axios.get(`http://localhost:9000/cineza/api/v1/statistics/year?year=${yearData}&month=${month}`)
+            const dataStatistics = await axios.get(`http://13.212.34.123:9000/cineza/api/v1/statistics/year?year=${yearData}&month=${month}`)
             if (dataStatistics.status === 200) {
                 let total = 0;
                 const newData = {
@@ -77,14 +77,14 @@ function Statistics() {
             } else {
                 yearData = year
             }
-            const totalTicket = await axios.get(`http://localhost:9000/cineza/api/v1/statistics/get-total-ticket?year=${yearData}&month=${month}`)
+            const totalTicket = await axios.get(`http://13.212.34.123:9000/cineza/api/v1/statistics/get-total-ticket?year=${yearData}&month=${month}`)
             if (totalTicket.status === 200) {
                 for (let t of totalTicket.data) {
                     total += t.totalTicket
                 }
                 setTotalTicket(total);
             }
-            const dataStatistics = await axios.get(`http://localhost:9000/cineza/api/v1/statistics/top-5-movie?year=${yearData}&month=${month}`)
+            const dataStatistics = await axios.get(`http://13.212.34.123:9000/cineza/api/v1/statistics/top-5-movie?year=${yearData}&month=${month}`)
             if (dataStatistics.status === 200) {
                 const newData = {
                     labels: dataStatistics.data.map(value => {

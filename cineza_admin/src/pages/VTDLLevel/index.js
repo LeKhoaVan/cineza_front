@@ -72,7 +72,7 @@ const VTDLLevel = () => {
     if (levelAddress != undefined) {
       try {
         const response = await axios.get(
-          `http://localhost:9000/cineza/api/v1/address/get-by-level?levelAddress=${levelAddress}`
+          `http://13.212.34.123:9000/cineza/api/v1/address/get-by-level?levelAddress=${levelAddress}`
         );
         setAddress(response.data);
       } catch (error) {
@@ -81,7 +81,7 @@ const VTDLLevel = () => {
     } else {
       try {
         const response = await axios.get(
-          `http://localhost:9000/cineza/api/v1/address/get-by-level?levelAddress=${address[0].level}`
+          `http://13.212.34.123:9000/cineza/api/v1/address/get-by-level?levelAddress=${address[0].level}`
         );
         setAddress(response.data);
       } catch (error) {

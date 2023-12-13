@@ -52,7 +52,7 @@ const PromotionHeader = () => {
     const getData = async () => {
       try {
         const result = await axios.get(
-          "http://localhost:9000/cineza/api/v1/promotion-header/get-all"
+          "http://13.212.34.123:9000/cineza/api/v1/promotion-header/get-all"
         );
         if (result.status == 200) {
           const dataResult = result.data.map((item) => {

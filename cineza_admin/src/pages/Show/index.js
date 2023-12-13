@@ -86,7 +86,7 @@ const ShowTime = () => {
   useEffect(() => {
     const findShow = async () => {
       const result = await axios.get(
-        `http://localhost:9000/cineza/api/v1/show/get-all?movieName=${movieName}`
+        `http://13.212.34.123:9000/cineza/api/v1/show/get-all?movieName=${movieName}`
       );
       if (result.status == 200) {
         const dataResult = result.data.map((item) => {
@@ -125,7 +125,7 @@ const ShowTime = () => {
   const getData = async () => {
     try {
       const result = await axios.get(
-        "http://localhost:9000/cineza/api/v1/show/get-all"
+        "http://13.212.34.123:9000/cineza/api/v1/show/get-all"
       );
       if (result.status == 200) {
         const dataResult = result.data.map((item) => {

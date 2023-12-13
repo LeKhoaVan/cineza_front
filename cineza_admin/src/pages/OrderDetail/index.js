@@ -150,7 +150,7 @@ const OrderDetail = ({ codeOrder, onClickHandleClose }) => {
     const getRooms = async () => {
       try {
         const result = await axios.get(
-          `http://localhost:9000/cineza/api/v1/order/get-by-code/${codeOrder}`
+          `http://13.212.34.123:9000/cineza/api/v1/order/get-by-code/${codeOrder}`
         );
         if (result.status === 200) {
           const dataResult = result.data.map((item) => {

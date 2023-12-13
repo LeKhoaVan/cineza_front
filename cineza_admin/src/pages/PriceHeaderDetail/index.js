@@ -113,7 +113,7 @@ const PriceHeaderDetail = ({ codePriceHeader, onClickHandleClose, addBtn }) => {
 
     if (codeHeader != "") {
       const result = await axios.get(
-        `http://localhost:9000/cineza/api/v1/price/get-all-by-header/${codeHeader}`
+        `http://13.212.34.123:9000/cineza/api/v1/price/get-all-by-header/${codeHeader}`
       );
       if (result.status == 200) {
         const dataPriceDetail = result.data.map(price => {
@@ -274,12 +274,12 @@ const PriceHeaderDetail = ({ codePriceHeader, onClickHandleClose, addBtn }) => {
           const checkStartDay = moment(startDayShow).format("YYYY-MM-DD");
           const checkEndDay = moment(endDayShow).format("YYYY-MM-DD");
           const checkTime = await axios.get(
-            `http://localhost:9000/cineza/api/v1/price-header/check-time/${checkStartDay}/${checkEndDay}`
+            `http://13.212.34.123:9000/cineza/api/v1/price-header/check-time/${checkStartDay}/${checkEndDay}`
           );
           console.log(checkTime.data.length);
           if (checkTime.data.length === 0) {
             const response = await axios.post(
-              `http://localhost:9000/cineza/api/v1/price-header/create`,
+              `http://13.212.34.123:9000/cineza/api/v1/price-header/create`,
               priceHeader
             );
             if (response.status === 201) {
@@ -300,11 +300,11 @@ const PriceHeaderDetail = ({ codePriceHeader, onClickHandleClose, addBtn }) => {
           const checkStartDay = moment(startDayShow).format("YYYY-MM-DD");
           const checkEndDay = moment(endDayShow).format("YYYY-MM-DD");
           const checkTime = await axios.get(
-            `http://localhost:9000/cineza/api/v1/price-header/check-time/${checkStartDay}/${checkEndDay}`
+            `http://13.212.34.123:9000/cineza/api/v1/price-header/check-time/${checkStartDay}/${checkEndDay}`
           );
           if (checkTime.data.length === 0) {
             const response = await axios.put(
-              `http://localhost:9000/cineza/api/v1/price-header/put/` + code,
+              `http://13.212.34.123:9000/cineza/api/v1/price-header/put/` + code,
               priceHeader
             );
             if (response.status === 200) {
@@ -341,12 +341,12 @@ const PriceHeaderDetail = ({ codePriceHeader, onClickHandleClose, addBtn }) => {
           const checkEndDay = moment(endDayShow).format("YYYY-MM-DD");
 
           const response = await axios.post(
-            `http://localhost:9000/cineza/api/v1/price-header/create`,
+            `http://13.212.34.123:9000/cineza/api/v1/price-header/create`,
             dataPriceTam
           );
           if (response.status === 201) {
             const dataUpdate = await axios.put(
-              `http://localhost:9000/cineza/api/v1/price-header/update-all/${checkStartDay}/${checkEndDay}`
+              `http://13.212.34.123:9000/cineza/api/v1/price-header/update-all/${checkStartDay}/${checkEndDay}`
             );
             setMessage("Lưu thành công");
             setShowAlert(true);
@@ -368,10 +368,10 @@ const PriceHeaderDetail = ({ codePriceHeader, onClickHandleClose, addBtn }) => {
           const checkStartDay = moment(startDayShow).format("YYYY-MM-DD");
           const checkEndDay = moment(endDayShow).format("YYYY-MM-DD");
           const dataUpdate = await axios.put(
-            `http://localhost:9000/cineza/api/v1/price-header/update-all/${checkStartDay}/${checkEndDay}`
+            `http://13.212.34.123:9000/cineza/api/v1/price-header/update-all/${checkStartDay}/${checkEndDay}`
           );
           const response = await axios.put(
-            `http://localhost:9000/cineza/api/v1/price-header/put/` + code,
+            `http://13.212.34.123:9000/cineza/api/v1/price-header/put/` + code,
             dataPriceTam
           );
           if (response.status === 200) {
@@ -410,7 +410,7 @@ const PriceHeaderDetail = ({ codePriceHeader, onClickHandleClose, addBtn }) => {
     const getPriceHeader = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:9000/cineza/api/v1/price-header/get-code/${codePriceHeader}`
+          `http://13.212.34.123:9000/cineza/api/v1/price-header/get-code/${codePriceHeader}`
         );
         if (response.status === 200) {
           setCode(response.data.code);
@@ -437,7 +437,7 @@ const PriceHeaderDetail = ({ codePriceHeader, onClickHandleClose, addBtn }) => {
     try {
       if (codePriceHeader != "") {
         const result = await axios.get(
-          `http://localhost:9000/cineza/api/v1/price/get-all-by-header/${codePriceHeader}`
+          `http://13.212.34.123:9000/cineza/api/v1/price/get-all-by-header/${codePriceHeader}`
         );
         if (result.status == 200) {
           const dataPriceDetail = result.data.map(price => {
